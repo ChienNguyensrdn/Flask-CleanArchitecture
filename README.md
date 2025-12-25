@@ -108,3 +108,75 @@ Object Relational Mapping
 Ánh xạ 1 class (OOP)  model src/infrastructure/models --> Table in database 
 Ánh xạ các mối quan hệ (Relational) -- Khoá ngoại CSDL 
 (n-n): many to many 
+
+@startuml
+' Diagram Title
+title Clean Architecture Sequence Diagram
+
+' Define participants in order of appearance
+actor Actor
+participant "Web App"
+participant "Controller"
+participant "Services"
+participant "Domain"
+participant "infrastructure"
+database "Database"
+
+' --- Message Flow ---
+
+' 1. Initial Request
+Actor -> "Web App": Request
+activate "Web App"
+
+' 2. Forwarding to Controller
+"Web App" -> "Controller"
+activate "Controller"
+
+' 3. Calling the Service Layer
+"Controller" -> "Services"
+activate "Services"
+
+' 4. Interacting with the Domain Layer
+"Services" -> "Domain"
+activate "Domain"
+note over Domain: Interfaces
+
+' 5. Interacting with Infrastructure
+"Domain" -> "infrastructure"
+activate "infrastructure"
+note over infrastructure: Class implement
+
+' 6. Database Query
+"infrastructure" -> "Database"
+activate "Database"
+
+' --- Response Flow (Return Messages) ---
+
+' 7. Database returns data
+"Database" --> "infrastructure"
+deactivate "Database"
+
+' 8. Infrastructure returns to Domain
+"infrastructure" --> "Domain"
+deactivate "infrastructure"
+
+' 9. Domain returns to Services
+"Domain" --> "Services"
+deactivate "Domain"
+
+' 10. Services returns to Controller
+"Services" --> "Controller"
+deactivate "Services"
+
+' 11. Controller returns to Web App
+"Controller" --> "Web App"
+deactivate "Controller"
+
+' 12. Final data rendering to Actor
+"Web App" --> Actor
+note left of "Web App"
+  Render data
+end note
+deactivate "Web App"
+
+@enduml
