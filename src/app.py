@@ -30,6 +30,7 @@ def create_app():
         init_db(app)
     except Exception as e:
         print(f"Error initializing database: {e}")
+        raise
 
     # Register middleware
     middleware(app)

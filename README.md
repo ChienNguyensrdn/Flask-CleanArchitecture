@@ -96,15 +96,20 @@
     ```bash
     docker pull mcr.microsoft.com/mssql/server:2025-latest
     ```
+
+
 ## Install MS SQL server in docker 
     ```bash
     docker run -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=Aa123456" -p 1433:1433 --name sql1 --hostname sql1 -d  mcr.microsoft.com/mssql/server:2025-latest
     ```
+
+
 ## Test connect SQL server 
 
-## ORM Flask (from sqlalchemy.orm )
-Object Relational Mapping
 
+## ORM Flask (from sqlalchemy.orm )
+
+Object Relational Mapping
 Ánh xạ 1 class (OOP)  model src/infrastructure/models --> Table in database 
 Ánh xạ các mối quan hệ (Relational) -- Khoá ngoại CSDL 
 (n-n): many to many 
