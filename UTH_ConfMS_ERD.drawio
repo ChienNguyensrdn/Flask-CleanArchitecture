@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2025-12-29T13:06:23.000Z" agent="5.0" etag="UTH_ConfMS_ERD" version="24.1.0" type="device">
+  <diagram id="R2lEEwgBhxs0nLlMIHY1" name="UTH Conference Management System ERD">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="900" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Table Definitions -->
+        
+        <!-- Tenant Table -->
+        <mxCell id="tenant_table" value="Tenant" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="50" width="160" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="tenant_pk" value="+ tenant_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="tenant_table">
+          <mxGeometry y="26" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="tenant_attr1" value="tenant_name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="tenant_table">
+          <mxGeometry y="48" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="tenant_attr2" value="created_at: DateTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="tenant_table">
+          <mxGeometry y="70" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="tenant_attr3" value="updated_at: DateTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="tenant_table">
+          <mxGeometry y="92" width="160" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Roles Table -->
+        <mxCell id="roles_table" value="Roles" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="roles_pk" value="+ role_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="roles_table">
+          <mxGeometry y="26" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="roles_attr1" value="role_name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="roles_table">
+          <mxGeometry y="48" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="roles_attr2" value="description: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="roles_table">
+          <mxGeometry y="70" width="160" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- User Table -->
+        <mxCell id="user_table" value="User" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="50" width="180" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_pk" value="+ user_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="user_table">
+          <mxGeometry y="26" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_fk1" value="# tenant_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="user_table">
+          <mxGeometry y="48" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_attr1" value="email: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="user_table">
+          <mxGeometry y="70" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_attr2" value="full_name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="user_table">
+          <mxGeometry y="92" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_attr3" value="password_hash: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="user_table">
+          <mxGeometry y="114" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="user_attr4" value="created_at: DateTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="user_table">
+          <mxGeometry y="136" width="180" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- UserRole Table -->
+        <mxCell id="userrole_table" value="UserRole" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="300" width="180" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="userrole_pk" value="+ user_role_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="userrole_table">
+          <mxGeometry y="26" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="userrole_fk1" value="# user_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="userrole_table">
+          <mxGeometry y="48" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="userrole_fk2" value="# role_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="userrole_table">
+          <mxGeometry y="70" width="180" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Conference Table -->
+        <mxCell id="conference_table" value="Conference" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="50" width="200" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="conference_pk" value="+ conference_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="conference_table">
+          <mxGeometry y="26" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="conference_fk1" value="# tenant_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="conference_table">
+          <mxGeometry y="48" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="conference_attr1" value="title: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="conference_table">
+          <mxGeometry y="70" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="conference_attr2" value="description: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="conference_table">
+          <mxGeometry y="92" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="conference_attr3" value="start_date: DateTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="conference_table">
+          <mxGeometry y="114" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="conference_attr4" value="end_date: DateTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="conference_table">
+          <mxGeometry y="136" width="200" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- CFP Table -->
+        <mxCell id="cfp_table" value="CFP (Call for Papers)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="300" width="200" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="cfp_pk" value="+ cfp_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cfp_table">
+          <mxGeometry y="26" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="cfp_fk1" value="# conference_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cfp_table">
+          <mxGeometry y="48" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="cfp_attr1" value="deadline: DateTime" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cfp_table">
+          <mxGeometry y="70" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="cfp_attr2" value="status: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cfp_table">
+          <mxGeometry y="92" width="200" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Track Table -->
+        <mxCell id="track_table" value="Track" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="50" width="160" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="track_pk" value="+ track_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="track_table">
+          <mxGeometry y="26" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="track_fk1" value="# conference_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="track_table">
+          <mxGeometry y="48" width="160" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="track_attr1" value="track_name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="track_table">
+          <mxGeometry y="70" width="160" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- PC Table -->
+        <mxCell id="pc_table" value="PC (Program Committee)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="750" y="250" width="200" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="pc_pk" value="+ pc_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="pc_table">
+          <mxGeometry y="26" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="pc_fk1" value="# track_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="pc_table">
+          <mxGeometry y="48" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="pc_fk2" value="# user_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="pc_table">
+          <mxGeometry y="70" width="200" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Submission Table -->
+        <mxCell id="submission_table" value="Submission" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="520" width="200" height="170" as="geometry"/>
+        </mxCell>
+        <mxCell id="submission_pk" value="+ submission_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="submission_table">
+          <mxGeometry y="26" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="submission_fk1" value="# cfp_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="submission_table">
+          <mxGeometry y="48" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="submission_fk2" value="# track_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="submission_table">
+          <mxGeometry y="70" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="submission_attr1" value="title: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="submission_table">
+          <mxGeometry y="92" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="submission_attr2" value="abstract: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="submission_table">
+          <mxGeometry y="114" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="submission_attr3" value="status: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="submission_table">
+          <mxGeometry y="136" width="200" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- SubAuthor Table -->
+        <mxCell id="subauthor_table" value="SubAuthor" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="520" width="180" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="subauthor_pk" value="+ subauthor_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="subauthor_table">
+          <mxGeometry y="26" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="subauthor_fk1" value="# submission_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="subauthor_table">
+          <mxGeometry y="48" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="subauthor_fk2" value="# user_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="subauthor_table">
+          <mxGeometry y="70" width="180" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- COI_submission Table -->
+        <mxCell id="coi_submission_table" value="COI_submission (Conflict of Interest)" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="520" width="230" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="coi_pk" value="+ coi_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="coi_submission_table">
+          <mxGeometry y="26" width="230" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="coi_fk1" value="# submission_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="coi_submission_table">
+          <mxGeometry y="48" width="230" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="coi_fk2" value="# pc_member_id (FK->User)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="coi_submission_table">
+          <mxGeometry y="70" width="230" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- ReviewAssignment Table -->
+        <mxCell id="reviewassignment_table" value="ReviewAssignment" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="800" y="520" width="220" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="ra_pk" value="+ assignment_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="reviewassignment_table">
+          <mxGeometry y="26" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ra_fk1" value="# submission_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="reviewassignment_table">
+          <mxGeometry y="48" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="ra_fk2" value="# pc_member_id (FK->PC)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="reviewassignment_table">
+          <mxGeometry y="70" width="220" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Review Table -->
+        <mxCell id="review_table" value="Review" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="50" y="750" width="220" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="review_pk" value="+ review_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="review_table">
+          <mxGeometry y="26" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="review_fk1" value="# assignment_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="review_table">
+          <mxGeometry y="48" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="review_attr1" value="score: Integer" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="review_table">
+          <mxGeometry y="70" width="220" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="review_attr2" value="comments: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="review_table">
+          <mxGeometry y="92" width="220" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Decision Table -->
+        <mxCell id="decision_table" value="Decision" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="750" width="200" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="decision_pk" value="+ decision_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="decision_table">
+          <mxGeometry y="26" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="decision_fk1" value="# submission_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="decision_table">
+          <mxGeometry y="48" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="decision_attr1" value="decision: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="decision_table">
+          <mxGeometry y="70" width="200" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- CameraReady Table -->
+        <mxCell id="cameraready_table" value="CameraReady" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="750" width="200" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="cameraready_pk" value="+ cameraready_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cameraready_table">
+          <mxGeometry y="26" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="cameraready_fk1" value="# submission_id (FK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cameraready_table">
+          <mxGeometry y="48" width="200" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="cameraready_attr1" value="status: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="cameraready_table">
+          <mxGeometry y="70" width="200" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- AIFeature Table -->
+        <mxCell id="aifeature_table" value="AIFeature" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;html=1;" vertex="1" parent="1">
+          <mxGeometry x="820" y="750" width="180" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="aifeature_pk" value="+ feature_id (PK)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="aifeature_table">
+          <mxGeometry y="26" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="aifeature_attr1" value="feature_name: String" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="aifeature_table">
+          <mxGeometry y="48" width="180" height="22" as="geometry"/>
+        </mxCell>
+        <mxCell id="aifeature_attr2" value="enabled: Boolean" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="aifeature_table">
+          <mxGeometry y="70" width="180" height="22" as="geometry"/>
+        </mxCell>
+        
+        <!-- Relationships -->
+        
+        <!-- Tenant to User -->
+        <mxCell id="rel_tenant_user" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="tenant_table" target="user_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_tenant_user_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_tenant_user">
+          <mxGeometry x="-0.5" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Tenant to Conference -->
+        <mxCell id="rel_tenant_conference" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="tenant_table" target="conference_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_tenant_conference_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_tenant_conference">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- User to UserRole -->
+        <mxCell id="rel_user_userrole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="user_table" target="userrole_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_user_userrole_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_user_userrole">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Roles to UserRole -->
+        <mxCell id="rel_roles_userrole" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="roles_table" target="userrole_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_roles_userrole_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_roles_userrole">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Conference to CFP -->
+        <mxCell id="rel_conference_cfp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="conference_table" target="cfp_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_conference_cfp_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_conference_cfp">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Conference to Track -->
+        <mxCell id="rel_conference_track" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="conference_table" target="track_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_conference_track_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_conference_track">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Track to PC -->
+        <mxCell id="rel_track_pc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="track_table" target="pc_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_track_pc_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_track_pc">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- User to PC -->
+        <mxCell id="rel_user_pc" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="user_table" target="pc_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_user_pc_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_user_pc">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- CFP to Submission -->
+        <mxCell id="rel_cfp_submission" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="cfp_table" target="submission_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_cfp_submission_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_cfp_submission">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Track to Submission -->
+        <mxCell id="rel_track_submission" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="track_table" target="submission_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_track_submission_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_track_submission">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Submission to SubAuthor -->
+        <mxCell id="rel_submission_subauthor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="submission_table" target="subauthor_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_submission_subauthor_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_submission_subauthor">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- User to SubAuthor -->
+        <mxCell id="rel_user_subauthor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="user_table" target="subauthor_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_user_subauthor_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_user_subauthor">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Submission to COI_submission -->
+        <mxCell id="rel_submission_coi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="submission_table" target="coi_submission_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_submission_coi_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_submission_coi">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- User to COI_submission -->
+        <mxCell id="rel_user_coi" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor=#000000;" edge="1" parent="1" source="user_table" target="coi_submission_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_user_coi_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_user_coi">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Submission to ReviewAssignment -->
+        <mxCell id="rel_submission_ra" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor:#000000;" edge="1" parent="1" source="submission_table" target="reviewassignment_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_submission_ra_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_submission_ra">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- PC to ReviewAssignment -->
+        <mxCell id="rel_pc_ra" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor:#000000;" edge="1" parent="1" source="pc_table" target="reviewassignment_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_pc_ra_label" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_pc_ra">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- ReviewAssignment to Review -->
+        <mxCell id="rel_ra_review" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor:#000000;" edge="1" parent="1" source="reviewassignment_table" target="review_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_ra_review_label" value="1:1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_ra_review">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Submission to Decision -->
+        <mxCell id="rel_submission_decision" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor:#000000;" edge="1" parent="1" source="submission_table" target="decision_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_submission_decision_label" value="1:1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_submission_decision">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Submission to CameraReady -->
+        <mxCell id="rel_submission_cameraready" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=crow;startArrow=none;strokeColor:#000000;" edge="1" parent="1" source="submission_table" target="cameraready_table">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="rel_submission_cameraready_label" value="1:1" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=10;" vertex="1" connectable="0" parent="rel_submission_cameraready">
+          <mxGeometry x="0" y="-10" relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
