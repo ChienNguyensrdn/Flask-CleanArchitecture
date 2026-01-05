@@ -58,7 +58,7 @@
    - Bước 2: Kích hoạt môi trường:
      ## Windows:
      		.venv\Scripts\activate.ps1
-     ### Nếu xảy ra lỗi active .venv trên winos run powshell -->Administrator
+     ### Nếu xảy ra lỗi active .venv trên winos run powershell -->Administrator
          Set-ExecutionPolicy RemoteSigned -Force
      ## Unix/MacOS:
      		source .venv/bin/activate
