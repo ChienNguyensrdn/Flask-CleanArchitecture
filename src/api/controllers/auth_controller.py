@@ -13,10 +13,58 @@ register_request = RigisterUserRequestSchema()
 register_response = RigisterUserResponseSchema()
 @auth_bp.route('/check_router', methods=['GET'])
 def check_router():
+    """
+    Check router
+    ---
+    get:
+      summary: Check router health
+      tags:
+        - Auth
+      responses:
+        200:
+          description: Router is working
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    """
     return jsonify({'message': 'Router is working!'}), 200
 
 @auth_bp.route('/login', methods=['POST'])
 def login():
+    """
+    Login user
+    ---
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginUserRequest'
+      tags:
+        - Auth
+      responses:
+        200:
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginUserResponse'
+        401:
+          description: Invalid credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+    """
     data = request.get_json()
     user = session.query(UserModel).filter_by(
         user_name=data['user_name'],
@@ -35,6 +83,36 @@ def login():
 
 @auth_bp.route('/signup', methods=['POST'])
 def register():
+    """
+    Register a new user
+    ---
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RigisterUserRequest'
+      tags:
+        - Auth
+      responses:
+        201:
+          description: User registered successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RigisterUserResponse'
+        400:
+          description: Invalid input or user exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+    """
     data = request.get_json()
     errors = register_request.validate(data)
     if errors:
