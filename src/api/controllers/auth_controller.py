@@ -1,4 +1,4 @@
-import jwt
+# import jwt
 from flask import Blueprint, request, jsonify, current_app
 from datetime import datetime, timedelta
 from infrastructure.models.user_model import UserModel
@@ -67,7 +67,7 @@ def login():
     """
     data = request.get_json()
     user = session.query(UserModel).filter_by(
-        user_name=data['user_name'],
+        user_name=data['username'],
         password=data['password']
     ).first()
     if not user:
