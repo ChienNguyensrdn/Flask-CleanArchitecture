@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, Index, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, Index, ForeignKey
 from sqlalchemy.orm import relationship
 from infrastructure.databases.base import Base
 from datetime import datetime
@@ -52,7 +52,3 @@ class COIModel(Base):
     
     # Relationships
     pc_member = relationship("PCMemberModel", back_populates="conflicts")
-
-
-# Import Boolean for is_active column
-from sqlalchemy import Boolean

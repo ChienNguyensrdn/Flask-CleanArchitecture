@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, DateTime, Text, Index, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text, Index, ForeignKey
 from infrastructure.databases.base import Base
 from datetime import datetime
 
@@ -49,7 +49,3 @@ class AuditLogModel(Base):
     
     # Timestamp
     created_at = Column(DateTime, default=datetime.utcnow)
-
-
-# Import Boolean for ai_operation column
-from sqlalchemy import Boolean
