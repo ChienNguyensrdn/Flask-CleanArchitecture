@@ -20,7 +20,6 @@ from infrastructure.models.coi_model import COIModel
 # Review process
 from infrastructure.models.paper_assignment_model import PaperAssignmentModel
 from infrastructure.models.review_model import ReviewModel, ReviewDiscussionModel
-from infrastructure.models.rebuttal_model import RebuttalModel
 
 # Decision and publication
 from infrastructure.models.decision_model import DecisionModel
@@ -31,12 +30,6 @@ from infrastructure.models.email_template_model import EmailTemplateModel, Email
 
 # Audit and logging
 from infrastructure.models.audit_log_model import AuditLogModel
-
-# Legacy models (to be migrated)
-from infrastructure.models.program_model import ProgramModel
-from infrastructure.models.survey_model import SurveyModel
-from infrastructure.models.todo_model import TodoModel
-from infrastructure.models.course_model import CourseModel
 
 __all__ = [
     # Core
@@ -59,7 +52,6 @@ __all__ = [
     'PaperAssignmentModel',
     'ReviewModel',
     'ReviewDiscussionModel',
-    'RebuttalModel',
     
     # Decisions
     'DecisionModel',
@@ -71,11 +63,5 @@ __all__ = [
     
     # Audit
     'AuditLogModel',
-    
-    # Legacy
-    'ProgramModel',
-    'SurveyModel',
-    'TodoModel',
-    'CourseModel',
 ]
  
