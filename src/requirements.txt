@@ -4,10 +4,6 @@ Flask-SQLAlchemy>=2.5
 SQLAlchemy>=1.4
 marshmallow>=3.0
 pymssql>=2.2
-python-dotenv>=0.21 
-Flask-RESTX>=1.1.0 
-flasgger
-fastapi
-apispec
-apispec_webframeworks
-flask-swagger-ui
+python-dotenv>=0.21
+PyJWT>=2.0
+alembic>=1.8

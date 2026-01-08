@@ -41,8 +41,6 @@ class ConferenceModel(Base):
     # Review settings
     review_mode = Column(String(50), default='double_blind')  # single_blind, double_blind, open
     min_reviews_per_paper = Column(Integer, default=3)
-    allow_rebuttal = Column(Boolean, default=False)
-    rebuttal_deadline = Column(DateTime, nullable=True)
     
     # Status
     status = Column(String(50), default='draft')  # draft, open, reviewing, decided, published

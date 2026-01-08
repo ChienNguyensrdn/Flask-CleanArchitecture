@@ -1,31 +1,21 @@
 from flask import Flask, jsonify
-from api.swagger import spec
-from api.controllers.todo_controller import bp as todo_bp
+from api.controllers.auth_controller import auth_bp
+from api.controllers.tenant_controller import bp as tenant_bp
 from api.middleware import middleware
 from api.responses import success_response
 from infrastructure.databases import init_db
 from config import Config
-from flasgger import Swagger
-from config import SwaggerConfig
-from flask_swagger_ui import get_swaggerui_blueprint
 
 
 def create_app():
     app = Flask(__name__)
-    Swagger(app)
-    # Đăng ký blueprint trước
-    app.register_blueprint(todo_bp)
+    app.config.from_object(Config)
+    
+    # Register blueprints
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(tenant_bp)
 
-     # Thêm Swagger UI blueprint
-    SWAGGER_URL = '/docs'
-    API_URL = '/swagger.json'
-    swaggerui_blueprint = get_swaggerui_blueprint(
-        SWAGGER_URL,
-        API_URL,
-        config={'app_name': "Todo API"}
-    )
-    app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
-
+    # Initialize database
     try:
         init_db(app)
     except Exception as e:
@@ -35,22 +25,24 @@ def create_app():
     # Register middleware
     middleware(app)
 
-    # Register routes
-    with app.test_request_context():
-        for rule in app.url_map.iter_rules():
-            # Thêm các endpoint khác nếu cần
-            if rule.endpoint.startswith(('todo.', 'course.', 'user.')):
-                view_func = app.view_functions[rule.endpoint]
-                print(f"Adding path: {rule.rule} -> {view_func}")
-                spec.path(view=view_func)
+    # Health check endpoint
+    @app.route("/health", methods=["GET"])
+    def health_check():
+        return jsonify({"status": "healthy", "service": "UTH-ConfMS API"})
 
-    @app.route("/swagger.json")
-    def swagger_json():
-        return jsonify(spec.to_dict())
+    # API info endpoint
+    @app.route("/", methods=["GET"])
+    def api_info():
+        return jsonify({
+            "name": "UTH Conference Management System API",
+            "version": "1.0.0",
+            "description": "API for UTH Scientific Conference Paper Management System"
+        })
 
     return app
-# Run the application
 
+
+# Run the application
 if __name__ == '__main__':
     app = create_app()
     app.run(host='0.0.0.0', port=9999, debug=True)
