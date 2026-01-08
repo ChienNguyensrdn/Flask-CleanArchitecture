@@ -16,7 +16,7 @@ class UserModel(Base):
     __table_args__ = {'extend_existing': True}  # Thêm dòng này
 
     id = Column(Integer, primary_key=True)
-    user_name = Column(String(18), nullable=False)
+    username = Column(String(18), nullable=False)
     password = Column(String(18), nullable=False)
     description = Column(String(255), nullable=True)
     status = Column(Boolean, nullable=False)

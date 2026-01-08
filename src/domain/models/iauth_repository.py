@@ -22,5 +22,5 @@ class IAuthRepository(ABC):
     def un_look_account(self, course_id: int) -> None:
         pass 
     @abstractmethod
-    def check_exist(self, user_name: str) -> bool:
+    def check_exist(self, username: str) -> bool:
         pass

@@ -1,4 +1,3 @@
-# import jwt
 from flask import Blueprint, request, jsonify, current_app
 from datetime import datetime, timedelta
 from infrastructure.models.user_model import UserModel
@@ -6,7 +5,9 @@ from infrastructure.databases.mssql import session
 from api.schemas.auth import RigisterUserRequestSchema,RigisterUserResponseSchema
 from services.auth_service import AuthService
 from infrastructure.repositories.auth_repository import AuthRepository
-
+from hashlib import sha256
+import jwt
+from werkzeug.security import generate_password_hash, check_password_hash
 auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
 auth_service = AuthService(AuthRepository(session))
 register_request = RigisterUserRequestSchema()
@@ -67,7 +68,7 @@ def login():
     """
     data = request.get_json()
     user = session.query(UserModel).filter_by(
-        user_name=data['username'],
+        username=data['username'],
         password=data['password']
     ).first()
     if not user:
@@ -116,24 +117,31 @@ def register():
     data = request.get_json()
     errors = register_request.validate(data)
     if errors:
-        return jsonify(errors), 400
+      return jsonify(errors), 400
     # Lay thong tin tu nguoi dung truyen vao
-    
-    
-    if request.method == 'POST':
-        user_name = request.form['user_name']
-        password = request.form['password']
-        password_confirm = request.form['password_confirm']
 
+    # Support JSON body and avoid KeyError by using .get()
+    username = data.get('username') if isinstance(data, dict) else None
+    password = data.get('password') if isinstance(data, dict) else None
+    passwordconfirm = data.get('passwordconfirm') if isinstance(data, dict) else None
+    email = data.get('email') if isinstance(data, dict) else None
 
-        if auth_service.check_exist(user_name):
-            return jsonify({'message': 'User already exists. Please login.'}), 400
+    if not username or not password or not passwordconfirm or not email:
+      return jsonify({'message': 'Missing required fields: username, password, passwordconfirm, email'}), 400
 
-    #     hashed_password = generate_password_hash(password)
-    #     new_user = User(public_id=str(uuid.uuid4()), name=name, email=email, password=hashed_password)
+    if password != passwordconfirm:
+      return jsonify({'message': 'Passwords do not match'}), 400
 
-    #     db.session.add(new_user)
-    #     db.session.commit()
+    if auth_service.check_exist(username):
+      return jsonify({'message': 'User already exists. Please login.'}), 400
+    #  vieets theo kien truc clean architecture
+    # password_hashed = Str.encode()(password)
+    password_hashed =generate_password_hash(password)
+    new_user = auth_service.register(username, password_hashed, email)
+    if not new_user:
+      return jsonify({'message': 'Registration failed'}), 500 
+    result = register_response.dump(new_user)
+    return jsonify(result), 201
 
     #     return redirect(url_for('login'))
 

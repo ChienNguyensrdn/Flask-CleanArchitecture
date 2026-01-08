@@ -10,6 +10,7 @@ from config import Config
 from sqlalchemy import Column, Integer, String, DateTime
 from infrastructure.databases.mssql import session
 from sqlalchemy.orm import Session
+from infrastructure.models.auth.auth_user_model import AuthUserModel
 from infrastructure.models.user_model import UserModel
 load_dotenv()
 
@@ -23,10 +24,26 @@ class AuthRepository(IAuthRepository):
         # Implement login logic here
         # For demonstration, we will just return the auth object
         return auth
+   
     def register(self, auth: Auth) -> Optional[Auth]:
         # Implement registration logic here
         # For demonstration, we will just return the auth object
-        auth.id = 1  # Simulate setting an ID after registration
+        try:
+            new_user = AuthUserModel(
+                username=auth.username,
+                password_hash=auth.password,
+                email=auth.email
+            )
+            self.session.add(new_user)
+            self.session.commit()
+            self.session.refresh(new_user)
+            auth.id = new_user.id
+            return auth
+        except Exception as e:
+            self.session.rollback()
+            return None
+        finally:
+            self.session.close()
         return auth
     def remember_password(self) -> Optional[Auth]:
         # Implement remember password logic here
@@ -37,12 +54,12 @@ class AuthRepository(IAuthRepository):
     def un_look_account(self, course_id: int) -> None:
         # Implement un-look account logic here
         pass
-    def check_exist(self, user_name: str) -> bool:
+    def check_exist(self, username: str) -> bool:
         # Implement check exist logic here
-        existing_user = self.session.query(UserModel).filter_by(user_name = user_name).first()
+        existing_user = self.session.query(AuthUserModel).filter_by(username = username).first()
         if existing_user:
-            return False
-        return True
+            return True
+        return False
     
 
     

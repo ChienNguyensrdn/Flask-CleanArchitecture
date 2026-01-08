@@ -2,7 +2,8 @@ from datetime import date
 
 
 class Auth:
-    def __init__(self, user_name: str, password: str, password_comfirm: str):
-        self.user_name = user_name
+    def __init__(self, username: str, password: str, passwordcomfirm: str, email:str):
+        self.username = username
         self.password = password
-        self.password_comfirm = password_comfirm
+        self.passwordcomfirm = passwordcomfirm
+        self.email = email

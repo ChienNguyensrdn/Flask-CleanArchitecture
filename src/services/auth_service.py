@@ -5,15 +5,24 @@ from domain.models.iauth_repository import IAuthRepository
 class AuthService:
     def __init__(self, repository: IAuthRepository):
         self.repository = repository
-        
-    def register(self, user_name: str, password: str) -> Optional[Auth]:
+
+    def register(self, username: str, password: str, email: str) -> Optional[Auth]:
         # Check if user already exists
-        if self.repository.check_exist(user_name):
+        if self.repository.check_exist(username):
             return None  # User already exists
-        auth = Auth( user_name=user_name, password=password, password_comfirm=password)
+        auth = Auth(
+            username=username,
+            password=password,
+            passwordcomfirm=password,
+            email=email)
         return self.repository.register(auth)
-    def login(self, user_name: str, password: str) -> Optional[Auth]:
-        auth = Auth( user_name=user_name, password=password, password_comfirm=password)
+    def login(self, username: str, password: str) -> Optional[Auth]:
+        auth = Auth( 
+                    username=username, 
+                    password=password,
+                    passwordcomfirm=password,
+                    email=""
+                    )
         return self.repository.login(auth)
     def remember_password(self) -> Optional[Auth]:
         return self.repository.remember_password()
@@ -21,6 +30,6 @@ class AuthService:
         return self.repository.look_account(Id)
     def un_look_account(self, course_id: int) -> None:
         self.repository.un_look_account(course_id)
-    def check_exist(self, user_name: str) -> bool:
-        return self.repository.check_exist(user_name)
+    def check_exist(self, username: str) -> bool:
+        return self.repository.check_exist(username)
     
