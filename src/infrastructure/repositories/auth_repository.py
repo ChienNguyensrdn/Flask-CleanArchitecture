@@ -8,17 +8,19 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from config import Config
 from sqlalchemy import Column, Integer, String, DateTime
+from infrastructure.databases.factory_database import FactoryDatabase as db_factory
 from infrastructure.databases.mssql import session
 from sqlalchemy.orm import Session
 from infrastructure.models.auth.auth_user_model import AuthUserModel
 from infrastructure.models.user_model import UserModel
 load_dotenv()
 
+
 class AuthRepository(IAuthRepository):
     def __init__(self, session: Session = session):
         self._users = []
         self._id_counter = 1
-        self.session = session
+        self.session = db_factory.get_database('POSTGREE').session
     
     def login(self, auth: Auth) -> Auth:
         # Implement login logic here

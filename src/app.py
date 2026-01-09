@@ -45,9 +45,7 @@ def create_app():
                 view_func = app.view_functions[rule.endpoint]
                 print(f"Adding path: {rule.rule} -> {view_func}")
                 spec.path(view=view_func)
-            # view_func = app.view_functions[rule.endpoint]
-            # print(f"Adding path: {rule.rule} -> {view_func}")
-            # spec.path(view=view_func)
+            
     @app.route("/swagger.json")
     def swagger_json():
         return jsonify(spec.to_dict())

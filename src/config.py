@@ -4,6 +4,19 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+class FactoryConfig:
+    """Factory to get configuration based on environment."""
+    @staticmethod
+    def get_config(env: str):
+        if env == 'development':
+            return DevelopmentConfig
+        elif env == 'testing':
+            return TestingConfig
+        elif env == 'production':
+            return ProductionConfig
+        else:
+            return Config
+
 class Config:
     """Base configuration."""
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'a_default_secret_key'
@@ -15,10 +28,7 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration."""
     DEBUG = True
-    _raw_postg = os.environ.get('POSTGREE_DATABASE_URL')
-    if _raw_postg and _raw_postg.startswith('POSTGREE_DATABASE_URL='):
-        _raw_postg = _raw_postg.split('=', 1)[1]
-    DATABASE_URI = _raw_postg or os.environ.get('DATABASE_URI') or Config.DATABASE_URI
+    DATABASE_URI = os.environ.get('POSTGREE_DATABASE_URL')
 
 
 class TestingConfig(Config):
