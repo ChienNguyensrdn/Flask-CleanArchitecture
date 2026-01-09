@@ -21,7 +21,8 @@ class AuthService:
                     username=username, 
                     password=password,
                     passwordcomfirm=password,
-                    email=""
+                    email="",
+                    id = None
                     )
         return self.repository.login(auth)
     def remember_password(self) -> Optional[Auth]:

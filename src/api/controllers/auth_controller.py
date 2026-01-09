@@ -67,10 +67,10 @@ def login():
                     type: string
     """
     data = request.get_json()
-    user = session.query(UserModel).filter_by(
-        username=data['username'],
-        password=data['password']
-    ).first()
+    username=data['username'],
+    password=data['password']
+    password = generate_password_hash(password)
+    user = auth_service.login(username, password)
     if not user:
         return jsonify({'error': 'Invalid credentials'}), 401
 

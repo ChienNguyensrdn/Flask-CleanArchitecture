@@ -7,3 +7,4 @@ class Auth:
         self.password = password
         self.passwordcomfirm = passwordcomfirm
         self.email = email
+        self.id = None

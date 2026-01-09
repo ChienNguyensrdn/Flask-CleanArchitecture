@@ -15,7 +15,10 @@ class Config:
 class DevelopmentConfig(Config):
     """Development configuration."""
     DEBUG = True
-    DATABASE_URI = os.environ.get('DATABASE_URI') or 'mssql+pymssql://sa:Aa%40123456@127.0.0.1:1433/DemoFlaskApi'
+    _raw_postg = os.environ.get('POSTGREE_DATABASE_URL')
+    if _raw_postg and _raw_postg.startswith('POSTGREE_DATABASE_URL='):
+        _raw_postg = _raw_postg.split('=', 1)[1]
+    DATABASE_URI = _raw_postg or os.environ.get('DATABASE_URI') or Config.DATABASE_URI
 
 
 class TestingConfig(Config):

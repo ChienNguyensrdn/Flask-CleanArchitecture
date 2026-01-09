@@ -23,6 +23,13 @@ class AuthRepository(IAuthRepository):
     def login(self, auth: Auth) -> Auth:
         # Implement login logic here
         # For demonstration, we will just return the auth object
+        selfed_user = self.session.query(AuthUserModel).filter_by(
+            username=auth.username,
+            password_hash=auth.password
+        ).first()
+        if not selfed_user:
+            return None
+        auth.id = selfed_user.id
         return auth
    
     def register(self, auth: Auth) -> Optional[Auth]:
