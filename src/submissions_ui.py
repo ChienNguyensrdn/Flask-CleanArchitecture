@@ -4,19 +4,20 @@ def main(page: ft.Page):
     page.title = "UTH-ConfMS - Submissions"
     page.theme_mode = ft.ThemeMode.LIGHT
     page.bgcolor = "#F8F9FA"
-    page.window_width = 1200
-    page.window_height = 850
+    page.window.width = 1200
+    page.window.height = 850
     page.padding = 0
+    
     # 1. Sidebar va Header
     def create_header(title):
         return ft.Container(
             content=ft.Row([
-                ft.Icon(ft.icons.MENU, color="black"),
+                ft.Icon(ft.Icons.MENU, color="black"),
                 ft.Text(title, size=20, weight="bold"),
                 ft.Row([
-                    ft.Icon(ft.icons.DARK_MODE_OUTLINED),
-                    ft.Icon(ft.icons.NOTIFICATIONS_OUTLINED),
-                    ft.CircleAvatar(content=ft.Icon(ft.icons.PERSON)),
+                    ft.Icon(ft.Icons.DARK_MODE_OUTLINED),
+                    ft.Icon(ft.Icons.NOTIFICATIONS_OUTLINED),
+                    ft.CircleAvatar(content=ft.Icon(ft.Icons.PERSON)),
                     ft.Text("Admin", weight="bold")
                 ], spacing=15)
             ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
@@ -30,14 +31,32 @@ def main(page: ft.Page):
                 ft.Text("Important Notes", weight="bold", size=16),
                 ft.Text("System only accepts .PDF format\nAll edits or withdrawals must be completed before the deadline"),
             ]),
-            padding=20, border=ft.border.all(1, "blue200"), border_radius=10, expand=2
+            padding=20, border=ft.border.all(1, "#90CAF9"), border_radius=10, expand=2
         )
 
         # AI card
         ai_stats = ft.Row([
-            ft.Container(content=ft.Column([ft.Text("AI Success Rate"), ft.Text("85%", size=25, weight="bold")], horizontal_alignment="center"), border=ft.border.all(1, "blue200"), padding=15, border_radius=10, expand=1),
-            ft.Container(content=ft.Column([ft.Text("Suggestions Applied"), ft.Text("24", size=25, weight="bold")], horizontal_alignment="center"), border=ft.border.all(1, "blue200"), padding=15, border_radius=10, expand=1),
-            ft.Container(content=ft.Column([ft.Text("Grammar Errors Fixed"), ft.Text("12", size=25, weight="bold")], horizontal_alignment="center"), border=ft.border.all(1, "blue200"), padding=15, border_radius=10, expand=1),
+            ft.Container(
+                content=ft.Column([
+                    ft.Text("AI Success Rate"), 
+                    ft.Text("85%", size=25, weight="bold")
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER), 
+                border=ft.border.all(1, "#90CAF9"), padding=15, border_radius=10, expand=1
+            ),
+            ft.Container(
+                content=ft.Column([
+                    ft.Text("Suggestions Applied"), 
+                    ft.Text("24", size=25, weight="bold")
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER), 
+                border=ft.border.all(1, "#90CAF9"), padding=15, border_radius=10, expand=1
+            ),
+            ft.Container(
+                content=ft.Column([
+                    ft.Text("Grammar Errors Fixed"), 
+                    ft.Text("12", size=25, weight="bold")
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER), 
+                border=ft.border.all(1, "#90CAF9"), padding=15, border_radius=10, expand=1
+            ),
         ], spacing=15, expand=3)
 
         # Bảng dữ liệu
@@ -70,12 +89,12 @@ def main(page: ft.Page):
 
         return ft.Column([
             create_header("Submissions"),
-            ft.Padding(padding=20, content=ft.Column([
+            ft.Container(padding=20, content=ft.Column([
                 ft.Text("My Submissions", size=18, weight="bold"),
                 ft.Row([notes, ai_stats], spacing=20),
                 ft.Row([
                     ft.Text("Recent submissions", weight="bold"),
-                    ft.ElevatedButton("Create New Submission", icon=ft.icons.ADD, bgcolor="blue", color="white", on_click=lambda _: show_create_view())
+                    ft.ElevatedButton("Create New Submission", icon=ft.Icons.ADD, bgcolor="blue", color="white", on_click=lambda _: show_create_view())
                 ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
                 table
             ], spacing=20))
@@ -85,11 +104,18 @@ def main(page: ft.Page):
     def create_new_view():
         form_content = ft.Column([
             ft.TextField(label="Title *", border_radius=5),
-            ft.Dropdown(label="Track/Topic *", options=[ft.dropdown.Option("Information Technology"), ft.dropdown.Option("AI")], border_radius=5),
+            ft.Dropdown(
+                label="Track/Topic *", 
+                options=[
+                    ft.dropdown.Option("Information Technology"), 
+                    ft.dropdown.Option("AI")
+                ], 
+                border_radius=5
+            ),
             ft.TextField(label="Please fill in the content clearly...", multiline=True, min_lines=8, border_radius=5),
             ft.Container(
-                content=ft.Text("Click or drag PDF file here\nSystem only accepts .PDF format", text_align="center", color="grey"),
-                padding=30, border=ft.border.all(1, "grey400"), border_style=ft.BorderStyle.DASHED, border_radius=10, alignment=ft.alignment.center
+                content=ft.Text("Click or drag PDF file here\nSystem only accepts .PDF format", text_align=ft.TextAlign.CENTER, color="grey"),
+                padding=30, border=ft.border.all(1, "#BDBDBD"), border_radius=10, alignment=ft.alignment.center
             ),
             ft.TextField(label="Full Name:", border_radius=5),
             ft.Row([
@@ -102,17 +128,23 @@ def main(page: ft.Page):
         ai_sidebar = ft.Container(
             content=ft.Column([
                 ft.Text("AI Suggestions", weight="bold"),
-                ft.Row([ft.Chip(label="Information Technology"), ft.Chip(label="Logistics")], wrap=True),
-                ft.Row([ft.Chip(label="Artificial Intelligence"), ft.Chip(label="Optimization")], wrap=True),
+                ft.Row([
+                    ft.Chip(label=ft.Text("Information Technology")), 
+                    ft.Chip(label=ft.Text("Logistics"))
+                ], wrap=True),
+                ft.Row([
+                    ft.Chip(label=ft.Text("Artificial Intelligence")), 
+                    ft.Chip(label=ft.Text("Optimization"))
+                ], wrap=True),
             ], spacing=10),
-            expand=1, padding=20, bgcolor="white", border=ft.border.all(1, "grey200"), border_radius=10
+            expand=1, padding=20, bgcolor="white", border=ft.border.all(1, "#E0E0E0"), border_radius=10
         )
 
         return ft.Column([
             create_header("Create New Submission"),
-            ft.Padding(padding=20, content=ft.Column([
+            ft.Container(padding=20, content=ft.Column([
                 ft.Text("Submit New Paper", size=18, weight="bold"),
-                ft.Row([form_content, ai_sidebar], vertical_alignment="start", spacing=30)
+                ft.Row([form_content, ai_sidebar], vertical_alignment=ft.CrossAxisAlignment.START, spacing=30)
             ]))
         ], scroll=ft.ScrollMode.AUTO)
 
