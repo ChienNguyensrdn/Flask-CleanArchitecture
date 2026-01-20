@@ -7,3 +7,4 @@ pymssql>=2.2
 python-dotenv>=0.21
 PyJWT>=2.0
 alembic>=1.8
+flet>=0.9.0
