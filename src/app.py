@@ -5,6 +5,8 @@ from api.middleware import middleware
 from api.responses import success_response
 from infrastructure.databases import init_db
 from config import Config
+import threading
+import flet as ft
 
 
 def create_app():
@@ -42,7 +44,25 @@ def create_app():
     return app
 
 
+def run_flask():
+    """Run Flask API server"""
+    app = create_app()
+    app.run(host='0.0.0.0', port=9999, debug=False, use_reloader=False)
+
+
+def run_flet_ui():
+    """Run Flet UI application"""
+    from submissions_ui import main
+    ft.app(target=main)
+
+
 # Run the application
 if __name__ == '__main__':
-    app = create_app()
-    app.run(host='0.0.0.0', port=9999, debug=True)
+    # Start Flask API in a separate thread
+    flask_thread = threading.Thread(target=run_flask, daemon=True)
+    flask_thread.start()
+    print("Flask API running on http://localhost:9999")
+    
+    # Run Flet UI in main thread (required for GUI)
+    print("Starting Flet UI...")
+    run_flet_ui()
