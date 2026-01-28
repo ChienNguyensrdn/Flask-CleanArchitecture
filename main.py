@@ -3,6 +3,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
+from fastapi.responses import HTMLResponse
+
 from app.core.config import get_settings
 from app.core.database import init_db
 from app.api import auth, conferences, papers, reviews, pc_members
@@ -46,15 +48,19 @@ app.include_router(reviews.router, prefix="/api/v1")
 app.include_router(pc_members.router, prefix="/api/v1")
 
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def home():
     """Root endpoint with API info."""
-    return {
-        "name": settings.APP_NAME,
-        "version": settings.APP_VERSION,
-        "docs": "/docs",
-        "redoc": "/redoc"
-    }
+    return """
+    <html>
+        <head><title>UTH ConfMS</title></head>
+        <body>
+            <h1>Welcome to UTH Conference Paper Management System</h1>
+            <p><a href="/docs">API Documentation</a></p>
+            <p><a href="/redocs">API reDocumentation</a></p>
+        </body>
+    </html>
+    """
 
 
 @app.get("/health")
