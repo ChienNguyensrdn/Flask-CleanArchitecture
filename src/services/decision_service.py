@@ -3,7 +3,7 @@ from infrastructure.repositories.decision_repository import DecisionRepository, 
 from infrastructure.models.decision_model import DecisionModel
 from infrastructure.models.review_model import ReviewModel
 from infrastructure.models.paper_model import PaperModel
-from datetime import datetime
+from datetime import datetime, timezone
 import statistics
 
 
@@ -115,7 +115,7 @@ class DecisionService:
         if existing:
             raise ValueError(f"Decision already exists for paper {paper_id}")
         
-        decision_data['decided_at'] = datetime.utcnow()
+        decision_data['decided_at'] = datetime.now(timezone.utc)
         return self.decision_repository.create(decision_data)
     
     def get_decision(self, decision_id: int) -> Optional[DecisionModel]:
@@ -152,7 +152,7 @@ class DecisionService:
             'decided_by': decided_by,
             'avg_score': int(aggregation['avg_overall_score']),
             'review_count': aggregation['total_reviews'],
-            'decided_at': datetime.utcnow()
+            'decided_at': datetime.now(timezone.utc)
         }
         
         return self.create_decision(decision_data)
@@ -179,7 +179,7 @@ class DecisionService:
             'decision': 'desk_reject',
             'decided_by': decided_by,
             'internal_notes': reason,
-            'decided_at': datetime.utcnow()
+            'decided_at': datetime.now(timezone.utc)
         }
         
         return self.create_decision(decision_data)

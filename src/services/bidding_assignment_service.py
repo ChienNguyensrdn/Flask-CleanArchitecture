@@ -2,7 +2,7 @@ from typing import List, Optional, Dict, Any
 from infrastructure.repositories.pc_member_repository import PCMemberRepository, COIRepository
 from infrastructure.models.pc_member_model import PCMemberModel, BidModel, AssignmentModel
 from infrastructure.models.paper_model import PaperModel
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import func, desc
 import statistics
 
@@ -39,8 +39,8 @@ class BiddingService:
             'pc_member_id': member_id,
             'paper_id': paper_id,
             'bid_value': bid_value,
-            'created_at': datetime.utcnow(),
-            'updated_at': datetime.utcnow()
+            'created_at': datetime.now(timezone.utc),
+            'updated_at': datetime.now(timezone.utc)
         }
         
         return self.pc_member_repository.create_bid(bid_data)
@@ -53,7 +53,7 @@ class BiddingService:
         
         return self.pc_member_repository.update_bid(bid_id, {
             'bid_value': new_bid_value,
-            'updated_at': datetime.utcnow()
+            'updated_at': datetime.now(timezone.utc)
         })
     
     def get_bid(self, bid_id: int) -> Optional[BidModel]:
@@ -191,9 +191,9 @@ class AssignmentService:
             'paper_id': paper_id,
             'pc_member_id': member_id,
             'assigned_by': assigned_by,
-            'assigned_at': datetime.utcnow(),
+            'assigned_at': datetime.now(timezone.utc),
             'is_active': True,
-            'created_at': datetime.utcnow()
+            'created_at': datetime.now(timezone.utc)
         }
         
         # Increment assigned count for member

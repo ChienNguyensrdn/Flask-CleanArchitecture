@@ -1,3 +1,4 @@
+"""Decision controller for managing paper decisions."""
 from flask import Blueprint, request, jsonify
 from marshmallow import ValidationError
 from api.schemas.decision import (
@@ -7,8 +8,11 @@ from api.schemas.decision import (
 )
 from services.decision_service import DecisionService, ReviewAggregationService, NotificationService
 from infrastructure.repositories.decision_repository import DecisionRepository, ReviewRepository
-from infrastructure.databases.mssql import session
+from infrastructure.databases.mssql import get_session
 from datetime import datetime
+import logging
+
+logger = logging.getLogger(__name__)
 
 bp = Blueprint('decision', __name__, url_prefix='/decisions')
 
@@ -19,9 +23,10 @@ decision_update_schema = DecisionUpdateSchema()
 bulk_notification_schema = BulkNotificationRequestSchema()
 desk_reject_schema = DeskRejectRequestSchema()
 
-# Initialize repositories and services
+
 def get_decision_services():
-    """Get decision services"""
+    """Get decision services with fresh session."""
+    session = get_session()
     review_repo = ReviewRepository(session)
     decision_repo = DecisionRepository(session)
     
@@ -34,7 +39,8 @@ def get_decision_services():
         'decision_repo': decision_repo,
         'review_agg_service': review_agg_service,
         'decision_service': decision_service,
-        'notification_service': notification_service
+        'notification_service': notification_service,
+        'session': session  # Include session for cleanup
     }
 
 
@@ -43,20 +49,23 @@ def get_decision_services():
 @bp.route('/reviews/aggregate/<int:paper_id>', methods=['GET'])
 def aggregate_paper_reviews(paper_id):
     """Aggregate reviews for a paper"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         aggregation = services['review_agg_service'].aggregate_paper_reviews(paper_id)
         
         return jsonify(aggregation), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error aggregating reviews for paper {paper_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to aggregate reviews'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/reviews/conference/<int:conference_id>', methods=['GET'])
 def get_conference_review_status(conference_id):
     """Get review status for all papers in a conference"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         # Get all reviews for conference
         reviews = services['review_repo'].get_conference_reviews(conference_id)
         
@@ -81,7 +90,10 @@ def get_conference_review_status(conference_id):
             'papers_status': papers_reviewed
         }), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting conference review status: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve review status'}), 500
+    finally:
+        services['session'].close()
 
 
 # ==================== DECISION MANAGEMENT ENDPOINTS ====================
@@ -89,26 +101,31 @@ def get_conference_review_status(conference_id):
 @bp.route('/', methods=['POST'])
 def create_decision():
     """Create a decision for a paper"""
+    services = get_decision_services()
     try:
         data = decision_request_schema.load(request.get_json())
         
-        services = get_decision_services()
         decision = services['decision_service'].create_decision(data)
         
         return jsonify(decision_response_schema.dump(decision)), 201
     except ValidationError as err:
         return jsonify({'errors': err.messages}), 400
     except ValueError as e:
+        logger.warning(f"Validation error creating decision: {e}")
         return jsonify({'error': str(e)}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error creating decision: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to create decision'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/<int:decision_id>', methods=['GET'])
 def get_decision(decision_id):
     """Get decision by ID"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         decision = services['decision_service'].get_decision(decision_id)
         
         if not decision:
@@ -116,14 +133,17 @@ def get_decision(decision_id):
         
         return jsonify(decision_response_schema.dump(decision)), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting decision {decision_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve decision'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/paper/<int:paper_id>', methods=['GET'])
 def get_paper_decision(paper_id):
     """Get decision for a paper"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         decision = services['decision_service'].get_paper_decision(paper_id)
         
         if not decision:
@@ -131,16 +151,18 @@ def get_paper_decision(paper_id):
         
         return jsonify(decision_response_schema.dump(decision)), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting decision for paper {paper_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve decision'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/conference/<int:conference_id>', methods=['GET'])
 def list_conference_decisions(conference_id):
     """List all decisions for a conference"""
+    services = get_decision_services()
     try:
         decision_type = request.args.get('type')
-        
-        services = get_decision_services()
         
         if decision_type:
             decisions = services['decision_service'].list_decisions_by_type(conference_id, decision_type)
@@ -149,16 +171,19 @@ def list_conference_decisions(conference_id):
         
         return jsonify(decision_response_schema.dump(decisions, many=True)), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error listing conference decisions: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve decisions'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/<int:decision_id>', methods=['PUT'])
 def update_decision(decision_id):
     """Update a decision"""
+    services = get_decision_services()
     try:
         data = decision_update_schema.load(request.get_json())
         
-        services = get_decision_services()
         decision = services['decision_service'].update_decision(decision_id, data)
         
         if not decision:
@@ -168,14 +193,18 @@ def update_decision(decision_id):
     except ValidationError as err:
         return jsonify({'errors': err.messages}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error updating decision {decision_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to update decision'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/<int:decision_id>', methods=['DELETE'])
 def delete_decision(decision_id):
     """Delete a decision"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         success = services['decision_repo'].delete(decision_id)
         
         if not success:
@@ -183,7 +212,11 @@ def delete_decision(decision_id):
         
         return jsonify({'message': 'Decision deleted successfully'}), 204
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error deleting decision {decision_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to delete decision'}), 500
+    finally:
+        services['session'].close()
 
 
 # ==================== AUTO-DECISION ENDPOINTS ====================
@@ -191,23 +224,29 @@ def delete_decision(decision_id):
 @bp.route('/auto-decide/<int:paper_id>', methods=['POST'])
 def make_auto_decision(paper_id):
     """Make automatic decision based on review aggregation"""
+    services = get_decision_services()
     try:
         data = request.get_json()
         decided_by = data.get('decided_by', 1)
         
-        services = get_decision_services()
         decision = services['decision_service'].make_auto_decision(paper_id, decided_by)
         
         return jsonify(decision_response_schema.dump(decision)), 201
     except ValueError as e:
+        logger.warning(f"Validation error making auto decision: {e}")
         return jsonify({'error': str(e)}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error making auto decision for paper {paper_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to make auto decision'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/bulk-auto-decide', methods=['POST'])
 def bulk_auto_decide():
     """Make automatic decisions for multiple papers"""
+    services = get_decision_services()
     try:
         data = request.get_json()
         paper_ids = data.get('paper_ids', [])
@@ -216,7 +255,6 @@ def bulk_auto_decide():
         if not paper_ids:
             return jsonify({'error': 'paper_ids is required'}), 400
         
-        services = get_decision_services()
         results = []
         errors = []
         
@@ -234,7 +272,11 @@ def bulk_auto_decide():
             'errors': errors if errors else None
         }), 201
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error in bulk auto decide: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to process bulk auto decisions'}), 500
+    finally:
+        services['session'].close()
 
 
 # ==================== CONDITIONAL ACCEPT ENDPOINTS ====================
@@ -242,6 +284,7 @@ def bulk_auto_decide():
 @bp.route('/<int:decision_id>/conditional', methods=['PATCH'])
 def set_conditional_accept(decision_id):
     """Set conditional accept with requirements"""
+    services = get_decision_services()
     try:
         data = request.get_json()
         conditions = data.get('conditions')
@@ -249,7 +292,6 @@ def set_conditional_accept(decision_id):
         if not conditions:
             return jsonify({'error': 'conditions is required'}), 400
         
-        services = get_decision_services()
         decision = services['decision_service'].set_conditional_accept(decision_id, conditions)
         
         if not decision:
@@ -257,17 +299,21 @@ def set_conditional_accept(decision_id):
         
         return jsonify(decision_response_schema.dump(decision)), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error setting conditional accept for decision {decision_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to set conditional accept'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/<int:decision_id>/verify-conditions', methods=['POST'])
 def verify_conditions_met(decision_id):
     """Verify that conditional accept requirements are met"""
+    services = get_decision_services()
     try:
         data = request.get_json()
         verified_by = data.get('verified_by', 1)
         
-        services = get_decision_services()
         decision = services['decision_service'].verify_conditions_met(decision_id, verified_by)
         
         if not decision:
@@ -275,7 +321,11 @@ def verify_conditions_met(decision_id):
         
         return jsonify(decision_response_schema.dump(decision)), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error verifying conditions for decision {decision_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to verify conditions'}), 500
+    finally:
+        services['session'].close()
 
 
 # ==================== DESK REJECT ENDPOINTS ====================
@@ -283,10 +333,10 @@ def verify_conditions_met(decision_id):
 @bp.route('/desk-reject', methods=['POST'])
 def desk_reject():
     """Desk reject a paper"""
+    services = get_decision_services()
     try:
         data = desk_reject_schema.load(request.get_json())
         
-        services = get_decision_services()
         decision = services['decision_service'].desk_reject_paper(
             data['paper_id'],
             data['reason'],
@@ -297,7 +347,11 @@ def desk_reject():
     except ValidationError as err:
         return jsonify({'errors': err.messages}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        services['session'].rollback()
+        logger.error(f"Error desk rejecting paper: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to desk reject paper'}), 500
+    finally:
+        services['session'].close()
 
 
 # ==================== REPORTING ENDPOINTS ====================
@@ -305,21 +359,23 @@ def desk_reject():
 @bp.route('/report/conference/<int:conference_id>', methods=['GET'])
 def get_decision_report(conference_id):
     """Get decision report for a conference"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         report = services['decision_service'].get_decision_report(conference_id)
         
         return jsonify(report), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting decision report: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve decision report'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/report/summary/<int:conference_id>', methods=['GET'])
 def get_conference_summary(conference_id):
     """Get summary statistics for a conference"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
-        
         decisions = services['decision_repo'].get_by_conference(conference_id)
         counts = services['decision_repo'].count_decisions_by_type(conference_id)
         acceptance_rate = services['decision_repo'].get_acceptance_rate(conference_id)
@@ -334,19 +390,25 @@ def get_conference_summary(conference_id):
             'acceptance_rate': f"{acceptance_rate:.2f}%"
         }), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting conference summary: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve summary'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/by-decision-maker/<int:user_id>', methods=['GET'])
 def get_decisions_by_maker(user_id):
     """Get all decisions made by a user"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         decisions = services['decision_repo'].get_decisions_by_decided_by(user_id)
         
         return jsonify(decision_response_schema.dump(decisions, many=True)), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting decisions by user {user_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve decisions'}), 500
+    finally:
+        services['session'].close()
 
 
 # ==================== NOTIFICATION ENDPOINTS ====================
@@ -354,8 +416,8 @@ def get_decisions_by_maker(user_id):
 @bp.route('/<int:decision_id>/notification-template', methods=['GET'])
 def get_notification_template(decision_id):
     """Get notification template for a decision"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         decision = services['decision_repo'].get_by_id(decision_id)
         
         if not decision:
@@ -365,12 +427,16 @@ def get_notification_template(decision_id):
         
         return jsonify(template), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting notification template for decision {decision_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve notification template'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/bulk-notifications', methods=['POST'])
 def bulk_send_notifications():
     """Send bulk notifications for decisions"""
+    services = get_decision_services()
     try:
         data = bulk_notification_schema.load(request.get_json())
         decision_ids = data.get('decision_ids', [])
@@ -380,7 +446,6 @@ def bulk_send_notifications():
         if not decision_ids:
             return jsonify({'error': 'decision_ids is required'}), 400
         
-        services = get_decision_services()
         notifications = []
         
         for decision_id in decision_ids:
@@ -402,14 +467,17 @@ def bulk_send_notifications():
     except ValidationError as err:
         return jsonify({'errors': err.messages}), 400
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error preparing bulk notifications: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to prepare notifications'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/statistics/acceptance-rate/<int:conference_id>', methods=['GET'])
 def get_acceptance_rate(conference_id):
     """Get acceptance rate for a conference"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         rate = services['decision_repo'].get_acceptance_rate(conference_id)
         
         return jsonify({
@@ -417,14 +485,17 @@ def get_acceptance_rate(conference_id):
             'acceptance_rate': f"{rate:.2f}%"
         }), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting acceptance rate: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve acceptance rate'}), 500
+    finally:
+        services['session'].close()
 
 
 @bp.route('/statistics/decision-timeline/<int:conference_id>', methods=['GET'])
 def get_decision_timeline(conference_id):
     """Get decision timeline for a conference"""
+    services = get_decision_services()
     try:
-        services = get_decision_services()
         recent = services['decision_repo'].get_recent_decisions(conference_id, limit=20)
         
         timeline = [
@@ -442,4 +513,7 @@ def get_decision_timeline(conference_id):
             'recent_decisions': timeline
         }), 200
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Error getting decision timeline: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve decision timeline'}), 500
+    finally:
+        services['session'].close()

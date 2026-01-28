@@ -1,12 +1,21 @@
+"""Tenant controller for managing tenant endpoints."""
 from flask import Blueprint, request, jsonify
 from services.tenant_service import TenantService
 from infrastructure.repositories.tenant_repository import TenantRepository
-from datetime import datetime
-from infrastructure.databases.mssql import session
+from datetime import datetime, timezone
+from infrastructure.databases.mssql import get_session
+import logging
+
+logger = logging.getLogger(__name__)
 
 bp = Blueprint('tenant', __name__, url_prefix='/tenants')
 
-tenant_service = TenantService(TenantRepository(session))
+
+def get_tenant_service():
+    """Factory to create tenant service with fresh session."""
+    session = get_session()
+    return TenantService(TenantRepository(session)), session
+
 
 @bp.route('/', methods=['GET'])
 def list_tenants():
@@ -40,15 +49,23 @@ def list_tenants():
                     Updated_at:
                       type: string
     """
-    tenants = tenant_service.list_tenants()
-    return jsonify([{
-        'Tenant_ID': t.Tenant_ID,
-        'Name': t.Name,
-        'Email': t.Email,
-        'Active': t.Active,
-        'Created_at': t.Created_at,
-        'Updated_at': t.Updated_at
-    } for t in tenants]), 200
+    service, session = get_tenant_service()
+    try:
+        tenants = service.list_tenants()
+        return jsonify([{
+            'Tenant_ID': t.Tenant_ID,
+            'Name': t.Name,
+            'Email': t.Email,
+            'Active': t.Active,
+            'Created_at': t.Created_at,
+            'Updated_at': t.Updated_at
+        } for t in tenants]), 200
+    except Exception as e:
+        logger.error(f"Error listing tenants: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve tenants'}), 500
+    finally:
+        session.close()
+
 
 @bp.route('/<int:tenant_id>', methods=['GET'])
 def get_tenant(tenant_id):
@@ -72,17 +89,25 @@ def get_tenant(tenant_id):
         404:
           description: Tenant not found
     """
-    tenant = tenant_service.get_tenant(tenant_id)
-    if not tenant:
-        return jsonify({'message': 'Tenant not found'}), 404
-    return jsonify({
-        'Tenant_ID': tenant.Tenant_ID,
-        'Name': tenant.Name,
-        'Email': tenant.Email,
-        'Active': tenant.Active,
-        'Created_at': tenant.Created_at,
-        'Updated_at': tenant.Updated_at
-    }), 200
+    service, session = get_tenant_service()
+    try:
+        tenant = service.get_tenant(tenant_id)
+        if not tenant:
+            return jsonify({'error': 'Tenant not found'}), 404
+        return jsonify({
+            'Tenant_ID': tenant.Tenant_ID,
+            'Name': tenant.Name,
+            'Email': tenant.Email,
+            'Active': tenant.Active,
+            'Created_at': tenant.Created_at,
+            'Updated_at': tenant.Updated_at
+        }), 200
+    except Exception as e:
+        logger.error(f"Error getting tenant {tenant_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to retrieve tenant'}), 500
+    finally:
+        session.close()
+
 
 @bp.route('/', methods=['POST'])
 def create_tenant():
@@ -112,27 +137,36 @@ def create_tenant():
         400:
           description: Invalid request body
     """
-    data = request.get_json()
-    
-    if not data or 'Name' not in data:
-        return jsonify({'message': 'Name is required'}), 400
-    
-    tenant = tenant_service.create_tenant(
-        name=data.get('Name'),
-        email=data.get('Email'),
-        active=data.get('Active', True),
-        created_at=datetime.utcnow(),
-        updated_at=datetime.utcnow()
-    )
-    
-    return jsonify({
-        'Tenant_ID': tenant.Tenant_ID,
-        'Name': tenant.Name,
-        'Email': tenant.Email,
-        'Active': tenant.Active,
-        'Created_at': tenant.Created_at,
-        'Updated_at': tenant.Updated_at
-    }), 201
+    service, session = get_tenant_service()
+    try:
+        data = request.get_json()
+        
+        if not data or 'Name' not in data:
+            return jsonify({'error': 'Name is required'}), 400
+        
+        tenant = service.create_tenant(
+            name=data.get('Name'),
+            email=data.get('Email'),
+            active=data.get('Active', True),
+            created_at=datetime.now(timezone.utc),
+            updated_at=datetime.now(timezone.utc)
+        )
+        
+        return jsonify({
+            'Tenant_ID': tenant.Tenant_ID,
+            'Name': tenant.Name,
+            'Email': tenant.Email,
+            'Active': tenant.Active,
+            'Created_at': tenant.Created_at,
+            'Updated_at': tenant.Updated_at
+        }), 201
+    except Exception as e:
+        session.rollback()
+        logger.error(f"Error creating tenant: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to create tenant'}), 500
+    finally:
+        session.close()
+
 
 @bp.route('/<int:tenant_id>', methods=['PUT'])
 def update_tenant(tenant_id):
@@ -168,29 +202,38 @@ def update_tenant(tenant_id):
         404:
           description: Tenant not found
     """
-    data = request.get_json()
-    tenant = tenant_service.get_tenant(tenant_id)
-    
-    if not tenant:
-        return jsonify({'message': 'Tenant not found'}), 404
-    
-    updated_tenant = tenant_service.update_tenant(
-        tenant_id=tenant_id,
-        name=data.get('Name', tenant.Name),
-        email=data.get('Email', tenant.Email),
-        active=data.get('Active', tenant.Active),
-        created_at=tenant.Created_at,
-        updated_at=datetime.utcnow()
-    )
-    
-    return jsonify({
-        'Tenant_ID': updated_tenant.Tenant_ID,
-        'Name': updated_tenant.Name,
-        'Email': updated_tenant.Email,
-        'Active': updated_tenant.Active,
-        'Created_at': updated_tenant.Created_at,
-        'Updated_at': updated_tenant.Updated_at
-    }), 200
+    service, session = get_tenant_service()
+    try:
+        data = request.get_json()
+        tenant = service.get_tenant(tenant_id)
+        
+        if not tenant:
+            return jsonify({'error': 'Tenant not found'}), 404
+        
+        updated_tenant = service.update_tenant(
+            tenant_id=tenant_id,
+            name=data.get('Name', tenant.Name),
+            email=data.get('Email', tenant.Email),
+            active=data.get('Active', tenant.Active),
+            created_at=tenant.Created_at,
+            updated_at=datetime.now(timezone.utc)
+        )
+        
+        return jsonify({
+            'Tenant_ID': updated_tenant.Tenant_ID,
+            'Name': updated_tenant.Name,
+            'Email': updated_tenant.Email,
+            'Active': updated_tenant.Active,
+            'Created_at': updated_tenant.Created_at,
+            'Updated_at': updated_tenant.Updated_at
+        }), 200
+    except Exception as e:
+        session.rollback()
+        logger.error(f"Error updating tenant {tenant_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to update tenant'}), 500
+    finally:
+        session.close()
+
 
 @bp.route('/<int:tenant_id>', methods=['DELETE'])
 def delete_tenant(tenant_id):
@@ -213,10 +256,18 @@ def delete_tenant(tenant_id):
         404:
           description: Tenant not found
     """
-    tenant = tenant_service.get_tenant(tenant_id)
-    
-    if not tenant:
-        return jsonify({'message': 'Tenant not found'}), 404
-    
-    tenant_service.delete_tenant(tenant_id)
-    return '', 204
+    service, session = get_tenant_service()
+    try:
+        tenant = service.get_tenant(tenant_id)
+        
+        if not tenant:
+            return jsonify({'error': 'Tenant not found'}), 404
+        
+        service.delete_tenant(tenant_id)
+        return '', 204
+    except Exception as e:
+        session.rollback()
+        logger.error(f"Error deleting tenant {tenant_id}: {e}", exc_info=True)
+        return jsonify({'error': 'Failed to delete tenant'}), 500
+    finally:
+        session.close()

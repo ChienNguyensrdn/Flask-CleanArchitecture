@@ -1,27 +1,56 @@
+"""Main application entry point for running Flask API with Flet UI."""
+import os
+import threading
+import logging
+
 from flask import Flask, jsonify
 from api.controllers.auth_controller import auth_bp
 from api.controllers.tenant_controller import bp as tenant_bp
+from api.controllers.conference_controller import bp as conference_bp
+from api.controllers.track_controller import bp as track_bp
+from api.controllers.email_template_controller import bp as email_template_bp
+from api.controllers.paper_controller import bp as paper_bp
+from api.controllers.pc_member_controller import bp as pc_member_bp
+from api.controllers.decision_controller import bp as decision_bp
 from api.middleware import middleware
-from api.responses import success_response
 from infrastructure.databases import init_db
-from config import Config
-import threading
+from config import get_config
 import flet as ft
 
+logger = logging.getLogger(__name__)
 
-def create_app():
+
+def create_app(config_name=None):
+    """
+    Application factory for creating Flask app instances.
+    
+    Args:
+        config_name: Optional configuration name override
+    
+    Returns:
+        Flask application instance
+    """
     app = Flask(__name__)
-    app.config.from_object(Config)
+    
+    # Load configuration
+    config_class = get_config()
+    app.config.from_object(config_class)
     
     # Register blueprints
     app.register_blueprint(auth_bp)
     app.register_blueprint(tenant_bp)
+    app.register_blueprint(conference_bp)
+    app.register_blueprint(track_bp)
+    app.register_blueprint(email_template_bp)
+    app.register_blueprint(paper_bp)
+    app.register_blueprint(pc_member_bp)
+    app.register_blueprint(decision_bp)
 
     # Initialize database
     try:
         init_db(app)
     except Exception as e:
-        print(f"Error initializing database: {e}")
+        logger.error(f"Error initializing database: {e}")
         raise
 
     # Register middleware
@@ -61,8 +90,8 @@ if __name__ == '__main__':
     # Start Flask API in a separate thread
     flask_thread = threading.Thread(target=run_flask, daemon=True)
     flask_thread.start()
-    print("Flask API running on http://localhost:9999")
+    logger.info("Flask API running on http://localhost:9999")
     
     # Run Flet UI in main thread (required for GUI)
-    print("Starting Flet UI...")
+    logger.info("Starting Flet UI...")
     run_flet_ui()

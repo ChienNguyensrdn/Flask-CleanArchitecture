@@ -1,8 +1,8 @@
 from typing import List, Optional, Dict, Any
 from infrastructure.repositories.conference_repository import ConferenceRepository
 from infrastructure.models.conference_model import ConferenceModel
-from domain.exceptions import Exception as DomainException
-from datetime import datetime
+from domain.exceptions import DomainException, NotFoundException, ValidationException, ConflictException
+from datetime import datetime, timezone
 
 
 class ConferenceService:
@@ -17,7 +17,7 @@ class ConferenceService:
         required_fields = ['tenant_id', 'name', 'short_name']
         for field in required_fields:
             if field not in conference_data or not conference_data[field]:
-                raise ValueError(f"Missing required field: {field}")
+                raise ValidationException(f"Missing required field: {field}")
         
         # Check if short_name already exists for this tenant
         existing = self.repository.get_by_short_name(
@@ -25,15 +25,15 @@ class ConferenceService:
             conference_data['tenant_id']
         )
         if existing:
-            raise ValueError(f"Short name '{conference_data['short_name']}' already exists for this tenant")
+            raise ConflictException(f"Short name '{conference_data['short_name']}' already exists for this tenant")
         
         # Set default status
         if 'status' not in conference_data:
             conference_data['status'] = 'draft'
         
         # Add timestamps
-        conference_data['created_at'] = datetime.utcnow()
-        conference_data['updated_at'] = datetime.utcnow()
+        conference_data['created_at'] = datetime.now(timezone.utc)
+        conference_data['updated_at'] = datetime.now(timezone.utc)
         
         return self.repository.create(conference_data)
     
@@ -68,7 +68,7 @@ class ConferenceService:
             del conference_data['tenant_id']
         
         # Update timestamps
-        conference_data['updated_at'] = datetime.utcnow()
+        conference_data['updated_at'] = datetime.now(timezone.utc)
         
         return self.repository.update(conference_id, conference_data)
     
@@ -117,7 +117,7 @@ class ConferenceService:
         if not conference.cfp_is_public or conference.status not in ['open', 'reviewing']:
             return False
         
-        if conference.submission_deadline and conference.submission_deadline < datetime.utcnow():
+        if conference.submission_deadline and conference.submission_deadline < datetime.now(timezone.utc):
             return False
         
         return True

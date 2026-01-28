@@ -1,7 +1,7 @@
 from typing import List, Optional, Dict, Any
 from infrastructure.repositories.email_template_repository import EmailTemplateRepository, EmailLogRepository
 from infrastructure.models.email_template_model import EmailTemplateModel, EmailLogModel
-from datetime import datetime
+from datetime import datetime, timezone
 import re
 
 
@@ -21,8 +21,8 @@ class EmailTemplateService:
                 raise ValueError(f"Missing required field: {field}")
         
         # Add timestamps
-        template_data['created_at'] = datetime.utcnow()
-        template_data['updated_at'] = datetime.utcnow()
+        template_data['created_at'] = datetime.now(timezone.utc)
+        template_data['updated_at'] = datetime.now(timezone.utc)
         
         return self.template_repository.create(template_data)
     
@@ -49,7 +49,7 @@ class EmailTemplateService:
             return None
         
         # Update timestamps
-        template_data['updated_at'] = datetime.utcnow()
+        template_data['updated_at'] = datetime.now(timezone.utc)
         
         return self.template_repository.update(template_id, template_data)
     
@@ -133,7 +133,7 @@ class EmailLogService:
             log_data['status'] = 'pending'
         
         # Add timestamp
-        log_data['created_at'] = datetime.utcnow()
+        log_data['created_at'] = datetime.now(timezone.utc)
         
         return self.repository.create(log_data)
     
@@ -163,7 +163,7 @@ class EmailLogService:
     
     def mark_as_sent(self, log_id: int) -> Optional[EmailLogModel]:
         """Mark email as sent"""
-        return self.repository.update_status(log_id, 'sent', datetime.utcnow())
+        return self.repository.update_status(log_id, 'sent', datetime.now(timezone.utc))
     
     def mark_as_failed(self, log_id: int, error_message: str) -> Optional[EmailLogModel]:
         """Mark email as failed"""

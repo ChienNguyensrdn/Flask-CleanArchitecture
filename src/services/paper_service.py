@@ -2,7 +2,7 @@ from typing import List, Optional, Dict, Any
 from infrastructure.repositories.paper_repository import PaperRepository, PaperAuthorRepository
 from infrastructure.models.paper_model import PaperModel
 from infrastructure.models.paper_author_model import PaperAuthorModel
-from datetime import datetime
+from datetime import datetime, timezone
 import os
 from pathlib import Path
 
@@ -26,8 +26,8 @@ class PaperService:
         # Add submitter and timestamps
         paper_data['submitter_id'] = submitter_id
         paper_data['status'] = 'draft'
-        paper_data['created_at'] = datetime.utcnow()
-        paper_data['updated_at'] = datetime.utcnow()
+        paper_data['created_at'] = datetime.now(timezone.utc)
+        paper_data['updated_at'] = datetime.now(timezone.utc)
         
         # Create paper
         paper = self.repository.create(paper_data)
@@ -83,7 +83,7 @@ class PaperService:
         if 'submitter_id' in paper_data:
             del paper_data['submitter_id']
         
-        paper_data['updated_at'] = datetime.utcnow()
+        paper_data['updated_at'] = datetime.now(timezone.utc)
         return self.repository.update(paper_id, paper_data)
     
     def mark_paper_submitted(self, paper_id: int) -> Optional[PaperModel]:
@@ -195,8 +195,8 @@ class PaperAuthorService:
             if field not in author_data or not author_data[field]:
                 raise ValueError(f"Missing required field: {field}")
         
-        author_data['created_at'] = datetime.utcnow()
-        author_data['updated_at'] = datetime.utcnow()
+        author_data['created_at'] = datetime.now(timezone.utc)
+        author_data['updated_at'] = datetime.now(timezone.utc)
         
         return self.repository.create(author_data)
     
@@ -222,7 +222,7 @@ class PaperAuthorService:
         if 'paper_id' in author_data:
             del author_data['paper_id']
         
-        author_data['updated_at'] = datetime.utcnow()
+        author_data['updated_at'] = datetime.now(timezone.utc)
         return self.repository.update(author_id, author_data)
     
     def remove_author(self, author_id: int) -> bool:
