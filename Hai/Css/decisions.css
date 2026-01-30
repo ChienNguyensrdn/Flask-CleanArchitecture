@@ -1,0 +1,308 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    margin: 0;
+    background: transparent;
+    color: var(--text-primary, #0f172a);
+}
+
+.page {
+    padding: 32px;
+}
+
+h1 {
+    margin-bottom: 4px;
+    color: var(--text-primary, #0f172a);
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.subtitle {
+    color: var(--text-secondary, #64748b);
+    margin-bottom: 24px;
+    font-size: 14px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #d0d7e2);
+    background: var(--bg-primary, #fff);
+    color: var(--text-primary, #0f172a);
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+select:hover {
+    border-color: var(--accent-primary, #3b82f6);
+}
+
+select:focus {
+    border-color: var(--accent-primary, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.btn.primary {
+    background: linear-gradient(135deg, var(--accent-primary, #3b82f6), var(--accent-secondary, #8b5cf6));
+    color: #fff;
+}
+
+.btn.primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn.primary:active {
+    transform: translateY(0);
+}
+
+.card {
+    background: var(--bg-primary, #fff);
+    border-radius: 16px;
+    padding: 16px;
+    margin-bottom: 24px;
+    box-shadow: var(--shadow-sm, 0 1px 2px rgba(0, 0, 0, 0.05));
+    border: 1px solid var(--border-color, #e2e8f0);
+    transition: all var(--transition-base, 0.3s ease);
+}
+
+.card h3 {
+    margin: 0 0 16px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary, #0f172a);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+tbody tr.selected {
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.dark tbody tr.selected {
+    background: rgba(59, 130, 246, 0.15);
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: center;
+    font-size: 13px;
+}
+
+th {
+    color: var(--text-secondary, #64748b);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+}
+
+td {
+    color: var(--text-primary, #0f172a);
+}
+
+thead {
+    background: var(--bg-secondary, #f1f5f9);
+}
+
+tbody tr:hover {
+    background: var(--bg-secondary, #f8fafc);
+}
+
+.dark tbody tr:hover {
+    background: rgba(59, 130, 246, 0.08);
+}
+
+.tag {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.tag.accept {
+    background: rgba(34, 197, 94, 0.15);
+    color: #16a34a;
+    border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.dark .tag.accept {
+    background: rgba(34, 197, 94, 0.25);
+    color: #4ade80;
+    border-color: rgba(34, 197, 94, 0.4);
+}
+
+.tag.reject {
+    background: rgba(239, 68, 68, 0.15);
+    color: #dc2626;
+    border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.dark .tag.reject {
+    background: rgba(239, 68, 68, 0.25);
+    color: #f87171;
+    border-color: rgba(239, 68, 68, 0.4);
+}
+
+.tag.revise {
+    background: rgba(245, 158, 11, 0.15);
+    color: #ca8a04;
+    border: 1px solid rgba(202, 138, 4, 0.2);
+}
+
+.dark .tag.revise {
+    background: rgba(245, 158, 11, 0.25);
+    color: #fbbf24;
+    border-color: rgba(245, 158, 11, 0.4);
+}
+
+.decision {
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color, #d0d7e2);
+    background: var(--bg-primary, #fff);
+    color: var(--text-primary, #0f172a);
+    font-size: 12px;
+    cursor: pointer;
+    outline: none;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.decision:hover {
+    border-color: var(--accent-primary, #3b82f6);
+}
+
+.decision:focus {
+    border-color: var(--accent-primary, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.decision.accept {
+    border-color: rgba(22, 163, 74, 0.3);
+}
+
+.decision.reject {
+    border-color: rgba(220, 38, 38, 0.3);
+}
+
+.decision.revise {
+    border-color: rgba(202, 138, 4, 0.3);
+}
+
+.email label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--text-primary, #0f172a);
+    cursor: pointer;
+}
+
+.email input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-primary, #3b82f6);
+    cursor: pointer;
+}
+
+.email textarea {
+    width: 100%;
+    height: 140px;
+    margin: 12px 0;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color, #d0d7e2);
+    background: var(--bg-primary, #fff);
+    color: var(--text-primary, #0f172a);
+    font-size: 13px;
+    font-family: inherit;
+    resize: none;
+    outline: none;
+    transition: all var(--transition-fast, 0.15s ease);
+}
+
+.email textarea:focus {
+    border-color: var(--accent-primary, #3b82f6);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Dark mode specific styles */
+.dark body {
+    background: transparent;
+}
+
+.dark .page {
+    color: var(--text-primary);
+}
+
+.dark .card {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: #1f2937;
+}
+
+.dark select {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: #1f2937;
+    color: var(--text-primary);
+}
+
+.dark .decision {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: #1f2937;
+    color: var(--text-primary);
+}
+
+.dark .email textarea {
+    background: rgba(15, 23, 42, 0.9);
+    border-color: #1f2937;
+    color: var(--text-primary);
+}
+
+.dark thead {
+    background: #020617;
+    border-bottom-color: #1f2937;
+}
+
+.dark th {
+    color: #9ca3af;
+}
+
+.dark td {
+    color: #e5e7eb;
+    border-bottom-color: #1f2937;
+}
+
+.dark tbody tr {
+    border-bottom: 1px solid #1f2937;
+}

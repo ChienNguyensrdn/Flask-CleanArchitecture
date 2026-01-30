@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sidebar</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <!-- Basic Icons -->
+    <link href="https://cdn.boxicons.com/3.0.8/fonts/basic/boxicons.min.css" rel="stylesheet">
+    <!-- Filled Icons -->
+    <link href="https://cdn.boxicons.com/3.0.8/fonts/filled/boxicons-filled.min.css" rel="stylesheet">
+    <!-- Brand Icons -->
+    <link href="https://cdn.boxicons.com/3.0.8/fonts/brands/boxicons-brands.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/sidebar.css">
+</head>
+
+<body>
+
+    <aside class="sidebar">
+        <!-- LOGO -->
+        <div class="sidebar-logo">
+            <img src="../../assets/img/logo.png" alt="Logo">
+            <button class="icon-btn" onclick="toggleSidebar()">
+                <i class='bx bx-menu'></i>
+            </button>
+        </div>
+
+        <!-- MENU -->
+        <nav class="sidebar-menu">
+            <a class="menu-item active" data-route="/dashboard" onclick="navigateRoute('/dashboard')">
+                <i class='bx  bx-dashboard'></i>
+                <span>Dashboard</span>
+                <span class="badge">New</span>
+            </a>
+
+            <a class="menu-item" data-route="/users" onclick="navigateRoute('/users')">
+                <i class='bx bx-user'></i>
+                <span>Users</span>
+                <span class="count">2.4k</span>
+            </a>
+
+            <a class="menu-item" data-route="/conference" onclick="navigateRoute('/conference')">
+                <img src="../../assets/icons/Conference-CFP.svg" alt="Conference-CFP">
+                <span>Conference / CFP</span>
+            </a>
+
+            <a class="menu-item" data-route="/submissions" onclick="navigateRoute('/submissions')">
+                <img src="../../assets/icons/Submission.svg" alt="Submissions">
+                <span>Submissions</span>
+            </a>
+
+            <a class="menu-item" data-route="/program-committee" onclick="navigateRoute('/program-committee')">
+                <img src="../../assets/icons/Program-Committee.svg" alt="Program-Committee">
+                <span>Program Committee</span>
+            </a>
+
+            <a class="menu-item" data-route="/assign-review" onclick="navigateRoute('/assign-review')">
+                <img src="../../assets/icons/Assign-Review.svg" alt="Assign-Review">
+                <span>Assign & Review</span>
+            </a>
+
+            <a class="menu-item" data-route="/decisions" onclick="navigateRoute('/decisions')">
+                <img src="../../assets/icons/Decisions.svg" alt="Decisions">
+                <span>Decisions</span>
+            </a>
+
+            <a class="menu-item" data-route="/camera-ready" onclick="navigateRoute('/camera-ready')">
+                <img src="../../assets/icons/Camera-ready.svg" alt="Camera-ready">
+                <span>Camera-ready</span>
+            </a>
+
+            <a class="menu-item" data-route="/reports" onclick="navigateRoute('/reports')">
+                <img src="../../assets/icons/Reports-Analytics.svg" alt="Reports-Analytics">
+                <span>Reports & Analytics</span>
+            </a>
+
+            <a class="menu-item" data-route="/settings" onclick="navigateRoute('/settings')">
+                <i class='bx  bx-cog'></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <!-- USER -->
+        <div class="sidebar-user">
+            <img src="https://i.pinimg.com/736x/ff/de/85/ffde85a293c7b845956ac3bb08a47ad3.jpg">
+            <div>
+                <strong>Nguyen Van A</strong>
+                <small>Administrator</small>
+            </div>
+        </div>
+    </aside>
+
+    <script src="../../js/sidebar.js"></script>
+
+</body>
+
+</html>

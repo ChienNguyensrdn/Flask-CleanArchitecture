@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Submissions</title>
+    <link rel="stylesheet" href="../css/submissions.css" />
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="page-header">
+            <div>
+                <h2>Submissions</h2>
+                <p class="page-description">Danh sách bài nộp, track, trạng thái và thao tác nhanh</p>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="toolbar">
+                <input class="search" type="text" placeholder="Tìm theo title / author / ID..." />
+                <select class="select">
+                    <option>All Status</option>
+                    <option>Submitted</option>
+                    <option>Under review</option>
+                    <option>Decision made</option>
+                    <option>Camera-ready</option>
+                </select>
+                <button class="btn">Export</button>
+                <button class="btn primary">+ New submission</button>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Track</th>
+                            <th>Author</th>
+                            <th>Status</th>
+                            <th>Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#152</td>
+                            <td>Efficient AI for Edge Devices</td>
+                            <td>AI</td>
+                            <td>Le Van C</td>
+                            <td><span class="badge info">Under review</span></td>
+                            <td>Today</td>
+                        </tr>
+                        <tr>
+                            <td>#147</td>
+                            <td>Privacy-preserving Analytics</td>
+                            <td>Security</td>
+                            <td>Tran Thi B</td>
+                            <td><span class="badge ok">Submitted</span></td>
+                            <td>Yesterday</td>
+                        </tr>
+                        <tr>
+                            <td>#133</td>
+                            <td>Human-centered Interfaces in AR</td>
+                            <td>HCI</td>
+                            <td>Nguyen Van A</td>
+                            <td><span class="badge warn">Decision made</span></td>
+                            <td>3 days ago</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Decision & Notifications</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Css/index.css">
+    <link rel="stylesheet" href="../Css/decisions.css">
+</head>
+
+<body>
+
+    <div class="page">
+        <h1>Decision & Notifications</h1>
+        <p class="subtitle">Aggregate reviews, make decisions, and notify authors</p>
+
+        <!-- Actions -->
+        <div class="actions">
+            <select>
+                <option>All Tracks</option>
+                <option>AI</option>
+                <option>Data</option>
+                <option>Security</option>
+            </select>
+
+            <select>
+                <option>All Status</option>
+                <option>Pending</option>
+                <option>Accepted</option>
+                <option>Rejected</option>
+            </select>
+
+            <button class="btn primary">
+                <i class='bx bx-mail-send'></i> Bulk Email
+            </button>
+        </div>
+
+        <!-- Table -->
+        <div class="card">
+            <table id="decisionTable">
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox" id="checkAll">
+                        </th>
+                        <th>Paper ID</th>
+                        <th>Title</th>
+                        <th>Avg. Score</th>
+                        <th>Reviews</th>
+                        <th>Recommendation</th>
+                        <th>Decision</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><input type="checkbox" class="row-check"></td>
+                        <td>#152</td>
+                        <td>AI-Based Traffic Prediction</td>
+                        <td>8.6</td>
+                        <td>3</td>
+                        <td><span class="tag accept">Accept</span></td>
+                        <td>
+                            <select class="decision accept">
+                                <option>Accept</option>
+                                <option>Reject</option>
+                                <option>Revise</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" class="row-check"></td>
+                        <td>#168</td>
+                        <td>Blockchain for Smart City</td>
+                        <td>5.2</td>
+                        <td>2</td>
+                        <td><span class="tag reject">Reject</span></td>
+                        <td>
+                            <select class="decision reject">
+                                <option>Reject</option>
+                                <option>Accept</option>
+                                <option>Revise</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><input type="checkbox" class="row-check"></td>
+                        <td>#174</td>
+                        <td>Secure IoT Framework</td>
+                        <td>6.8</td>
+                        <td>3</td>
+                        <td><span class="tag revise">Borderline</span></td>
+                        <td>
+                            <select class="decision revise">
+                                <option>Revise</option>
+                                <option>Accept</option>
+                                <option>Reject</option>
+                            </select>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Email Preview -->
+        <div class="card email">
+            <h3>Email Notification Preview</h3>
+            <label>
+                <input type="checkbox" checked>
+                Anonymize reviewer comments
+            </label>
+
+            <textarea readonly>
+Dear Author,
+
+Thank you for submitting your paper to UTH Scientific Conference.
+
+Decision: ACCEPT
+
+Reviewer Comments:
+- The paper is well structured and clearly written.
+- Experimental results are convincing.
+
+Best regards,
+Program Committee
+    </textarea>
+
+            <button class="btn primary">
+                <i class='bx bx-send'></i> Send Notification
+            </button>
+        </div>
+
+    </div>
+
+</body>
+
+<script>
+    const checkAll = document.getElementById('checkAll');
+    const rowChecks = document.querySelectorAll('.row-check');
+
+    function updateHeaderCheckbox() {
+        const checkedCount = document.querySelectorAll('.row-check:checked').length;
+        checkAll.checked = checkedCount === rowChecks.length;
+        checkAll.indeterminate = checkedCount > 0 && checkedCount < rowChecks.length;
+    }
+
+    rowChecks.forEach(cb => {
+        cb.addEventListener('change', () => {
+            cb.closest('tr').classList.toggle('selected', cb.checked);
+            updateHeaderCheckbox();
+        });
+    });
+
+    checkAll.addEventListener('change', () => {
+        const checked = checkAll.checked;
+        rowChecks.forEach(cb => {
+            cb.checked = checked;
+            cb.closest('tr').classList.toggle('selected', checked);
+        });
+        checkAll.indeterminate = false;
+    });
+</script>
+
+</html>

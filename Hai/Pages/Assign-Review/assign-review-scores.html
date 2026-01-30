@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scores & Comments</title>
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Css/assign-review.css" />
+</head>
+<body>
+    <div class="ar-page">
+        <div class="ar-header">
+            <div class="ar-title">
+                <h2>Assign &amp; Review</h2>
+            </div>
+        </div>
+
+        <div class="ar-tabs" role="tablist" aria-label="Assign & Review sections">
+            <a class="tab" href="#/assign-review" role="tab" aria-selected="false">Assignment</a>
+            <a class="tab active" href="#/assign-review/scores" role="tab" aria-selected="true">Scores &amp; Comments</a>
+            <a class="tab" href="#/assign-review/discussion" role="tab" aria-selected="false">Internal Discussion</a>
+            <a class="tab" href="#/assign-review/rebuttal" role="tab" aria-selected="false">Rebuttal (Optional)</a>
+        </div>
+
+        <div class="ar-toolbar">
+            <div class="toolbar-left">
+                <button class="btn btn-primary" type="button">Export Scores</button>
+                <button class="btn btn-secondary" type="button">Generate Report</button>
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-filter'></i><span>Filters</span></button>
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-search'></i><span>Search</span></button>
+            </div>
+        </div>
+
+        <div class="ar-grid">
+            <!-- Main table -->
+            <section class="card card-table" aria-label="Scores & Comments table">
+                <div class="table-wrap">
+                    <table class="table table-fixed">
+                        <colgroup>
+                            <col class="w-check" />
+                            <col class="w-title" />
+                            <col class="w-topic" />
+                            <col class="w-reviewer" />
+                            <col class="w-score" />
+                            <col class="w-status" />
+                            <col class="w-actions" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="col-check"><input type="checkbox" aria-label="Select all" /></th>
+                                <th>Paper Title</th>
+                                <th>Topic</th>
+                                <th>Reviewer</th>
+                                <th>Score</th>
+                                <th>Status</th>
+                                <th class="col-actions">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-active">
+                                <td class="col-check"><input type="checkbox" checked aria-label="Select row" /></td>
+                                <td>AI for Traffic Optimization</td>
+                                <td class="muted">AI</td>
+                                <td class="muted">Reviewer A</td>
+                                <td><strong class="score-value">7.5</strong> / 10</td>
+                                <td><span class="badge badge-ok">Completed</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>AI for Traffic Optimization</td>
+                                <td class="muted">AI</td>
+                                <td class="muted">Reviewer B</td>
+                                <td><strong class="score-value">6.0</strong> / 10</td>
+                                <td><span class="badge badge-ok">Completed</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Blockchain IoT Security</td>
+                                <td class="muted">BlockChain</td>
+                                <td class="muted">Reviewer C</td>
+                                <td><strong class="score-value">8.0</strong> / 10</td>
+                                <td><span class="badge badge-ok">Completed</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Privacy-preserving Analytics</td>
+                                <td class="muted">Security</td>
+                                <td class="muted">Reviewer A</td>
+                                <td><strong class="score-value">—</strong></td>
+                                <td><span class="badge badge-info">Pending</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">View</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Human-centered AR Interfaces</td>
+                                <td class="muted">HCI</td>
+                                <td class="muted">Reviewer B</td>
+                                <td><strong class="score-value">5.5</strong> / 10</td>
+                                <td><span class="badge badge-warn">Overdue</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">View</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <button class="btn btn-ghost" type="button">Previous</button>
+                    <div class="pager">
+                        <button class="page active" type="button">1</button>
+                        <button class="page" type="button">2</button>
+                        <button class="page" type="button">3</button>
+                        <span class="dots">…</span>
+                        <button class="page" type="button">10</button>
+                    </div>
+                    <button class="btn btn-ghost" type="button">Next</button>
+                </div>
+            </section>
+
+            <!-- Side panel -->
+            <aside class="card card-side" aria-label="Review details">
+                <h3 class="card-title">Review Details</h3>
+
+                <div class="paper-info">
+                    <strong>Paper:</strong> AI for Traffic Optimization<br />
+                    <span class="muted">Paper ID: #AI02 | Topic: AI</span>
+                </div>
+
+                <div class="reviewer-list">
+                    <div class="review-card">
+                        <div class="reviewer-header">
+                            <h4>Reviewer A</h4>
+                            <span class="badge badge-ok">Completed</span>
+                        </div>
+                        <label class="field">
+                            <span>Score (1-10)</span>
+                            <input type="number" min="1" max="10" value="7.5" step="0.5" />
+                        </label>
+                        <label class="field">
+                            <span>Comments</span>
+                            <textarea rows="6" placeholder="Reviewer comments...">Well-written paper with solid experiments. The methodology is clear and the results are promising. However, the dataset could be more diverse.</textarea>
+                        </label>
+                        <div class="review-meta">
+                            <span class="muted">Submitted: 2 days ago</span>
+                        </div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="reviewer-header">
+                            <h4>Reviewer B</h4>
+                            <span class="badge badge-ok">Completed</span>
+                        </div>
+                        <label class="field">
+                            <span>Score (1-10)</span>
+                            <input type="number" min="1" max="10" value="6.0" step="0.5" />
+                        </label>
+                        <label class="field">
+                            <span>Comments</span>
+                            <textarea rows="6" placeholder="Reviewer comments...">Good idea and solid foundation. However, the evaluation methodology needs clearer explanation and more comprehensive experiments.</textarea>
+                        </label>
+                        <div class="review-meta">
+                            <span class="muted">Submitted: 1 day ago</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" type="button">SAVE</button>
+                    <button class="btn btn-secondary" type="button">CANCEL</button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="./js/assign-review.js"></script>
+</body>
+</html>

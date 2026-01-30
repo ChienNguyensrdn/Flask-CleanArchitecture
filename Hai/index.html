@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="UTH Scientific Conference Paper Management System">
+    <title>UTH Scientific Conference Paper Management System</title>
+
+    <link rel="stylesheet" href="./css/index.css">
+    <script src="./js/redirect-handler.js"></script>
+    <script src="./js/router.js"></script>
+</head>
+
+<body>
+    <div class="app">
+        <div class="layout">
+
+            <!-- SIDEBAR OVERLAY (Mobile only) -->
+            <div id="sidebarOverlay" class="sidebar-overlay"></div>
+
+            <!-- SIDEBAR -->
+            <iframe id="sidebarFrame" src="./components/sidebar.html" class="sidebar-frame"></iframe>
+
+            <!-- MAIN -->
+            <div class="main">
+
+                <!-- HEADER -->
+                <iframe id="headerFrame" src="./components/header.html" class="header-frame"></iframe>
+
+                <!-- CONTENT -->
+                <main>
+                    <div class="content-container"></div>
+                </main>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/app-state.js"></script>
+    <script src="./js/message-handler.js"></script>
+    <script src="./js/app-init.js"></script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../Css/dashboard.css" />
+</head>
+
+<body>
+    <div class="dashboard">
+
+        <!-- Header -->
+        <h1 class="title">Dashboard</h1>
+
+        <!-- Stats cards -->
+        <div class="stats">
+            <div class="card">
+                <p>Total Submissions</p>
+                <h2>152</h2>
+                <span class="positive">+4.0%</span>
+            </div>
+            <div class="card">
+                <p>Papers in Review</p>
+                <h2>87</h2>
+            </div>
+            <div class="card">
+                <p>Acceptance Rate</p>
+                <h2>29%</h2>
+                <span class="positive">+4.5%</span>
+            </div>
+            <div class="card">
+                <p>Pending Decisions</p>
+                <h2>24</h2>
+                <span class="negative">-20%</span>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="charts">
+            <div class="chart-card">
+                <h3>Submissions by Track</h3>
+                <div class="bar-chart">
+                    <div class="bar-item">
+                        <div class="bar ai"></div>
+                        <span>AI</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar blockchain"></div>
+                        <span>Blockchain</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar data"></div>
+                        <span>Data</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar security"></div>
+                        <span>Security</span>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar hci"></div>
+                        <span>HCI</span>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="chart-card">
+                <h3>Acceptance Rate vs Review</h3>
+                <div class="line-chart">
+                    <div class="line acceptance"></div>
+                    <div class="line review"></div>
+                </div>
+                <div class="legend">
+                    <span class="dot green"></span> Acceptance Rate
+                    <span class="dot blue"></span> Avg. Review Score
+                </div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+            <h3>Recent Submissions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Topic</th>
+                        <th>Author</th>
+                        <th>Submitted</th>
+                        <th>Status</th>
+                        <th>Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Article 1</td>
+                        <td>AI</td>
+                        <td>User 1</td>
+                        <td>Today</td>
+                        <td class="success">Camera-ready</td>
+                        <td><span class="active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Article 2</td>
+                        <td>Blockchain</td>
+                        <td>User 2</td>
+                        <td>Yesterday</td>
+                        <td class="warning">Withdrawn</td>
+                        <td><span class="active">Active</span></td>
+                    </tr>
+                    <tr>
+                        <td>Article 3</td>
+                        <td>Security</td>
+                        <td>User 3</td>
+                        <td>3 days ago</td>
+                        <td class="pending">Under review</td>
+                        <td><span class="inactive">Inactive</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Header</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../css/header.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <h1 id="headerTitle">Dashboard</h1>
+            <p>John Doe</p>
+        </div>
+
+        <div class="header-search">
+            <i class='bx bx-search'></i>
+            <input type="text" placeholder="Tìm kiếm...">
+        </div>
+
+        <div class="header-right">
+            <button class="btn-primary">
+                <i class='bx bx-plus'></i>
+                <span>Mới</span>
+            </button>
+
+            <button class="icon-btn" onclick="toggleTheme()">
+                <i class='bx bx-moon'></i>
+            </button>
+
+            <button class="icon-btn notify">
+                <i class='bx bx-bell'></i>
+                <span>3</span>
+            </button>
+
+            <img class="avatar" src="https://i.pinimg.com/736x/ff/de/85/ffde85a293c7b845956ac3bb08a47ad3.jpg">
+        </div>
+    </header>
+
+    <script src="../../js/header.js"></script>
+</body>
+
+</html>

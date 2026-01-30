@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assign & Review</title>
+
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Css/assign-review.css" />
+</head>
+<body>
+    <div class="ar-page">
+        <div class="ar-header">
+            <div class="ar-title">
+                <h2>Assign &amp; Review</h2>
+            </div>
+        </div>
+
+        <div class="ar-tabs" role="tablist" aria-label="Assign & Review sections">
+            <a class="tab active" href="#/assign-review" role="tab" aria-selected="true">Assignment</a>
+            <a class="tab" href="#/assign-review/scores" role="tab" aria-selected="false">Scores &amp; Comments</a>
+            <a class="tab" href="#/assign-review/discussion" role="tab" aria-selected="false">Internal Discussion</a>
+            <a class="tab" href="#/assign-review/rebuttal" role="tab" aria-selected="false">Rebuttal (Optional)</a>
+        </div>
+
+        <div class="ar-toolbar">
+            <div class="toolbar-left">
+                <button class="btn btn-primary" type="button">Manual Assign</button>
+                <button class="btn btn-secondary" type="button">Automatic Assignment by Topic/Keywords</button>
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-trash'></i><span>Delete</span></button>
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-filter'></i><span>Filters</span></button>
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-export'></i><span>Export</span></button>
+                <button class="btn btn-primary btn-icon" type="button"><i class='bx bx-plus'></i><span>Add New CTA</span></button>
+            </div>
+        </div>
+
+        <div class="ar-grid">
+            <!-- Main table -->
+            <section class="card card-table" aria-label="Assignment table">
+                <div class="table-wrap">
+                    <table class="table table-fixed">
+                        <colgroup>
+                            <col class="w-check" />
+                            <col class="w-title" />
+                            <col class="w-topic" />
+                            <col class="w-authors" />
+                            <col class="w-status" />
+                            <col class="w-actions" />
+                            <col class="w-more" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="col-check"><input type="checkbox" aria-label="Select all" /></th>
+                                <th>Title</th>
+                                <th>Topic</th>
+                                <th>Authors</th>
+                                <th>Status</th>
+                                <th class="col-actions">Assignment Actions</th>
+                                <th class="col-more"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row-active">
+                                <td class="col-check"><input type="checkbox" checked aria-label="Select row" /></td>
+                                <td>Article 1</td>
+                                <td class="muted">AI</td>
+                                <td class="muted">User 1</td>
+                                <td><span class="badge badge-ok">Camera-ready</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">Assignment</button>
+                                    <button class="pill pill-icon" type="button" aria-label="Expand"><span>▾</span></button>
+                                </td>
+                                <td class="col-more">⋮</td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Article 2</td>
+                                <td class="muted">BlockChain</td>
+                                <td class="muted">User 2</td>
+                                <td><span class="badge badge-warn">Withdrawn</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">Assignment</button>
+                                    <button class="pill pill-icon" type="button" aria-label="Expand"><span>▾</span></button>
+                                </td>
+                                <td class="col-more">⋮</td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Article 3</td>
+                                <td class="muted">Security</td>
+                                <td class="muted">User 3</td>
+                                <td><span class="badge badge-info">Under review</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">Assignment</button>
+                                    <button class="pill pill-icon" type="button" aria-label="Expand"><span>▾</span></button>
+                                </td>
+                                <td class="col-more">⋮</td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Article 4</td>
+                                <td class="muted">Security</td>
+                                <td class="muted">User 4</td>
+                                <td><span class="badge badge-info">Under review</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">Assignment</button>
+                                    <button class="pill pill-icon" type="button" aria-label="Expand"><span>▾</span></button>
+                                </td>
+                                <td class="col-more">⋮</td>
+                            </tr>
+                            <tr>
+                                <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                                <td>Article 5</td>
+                                <td class="muted">Security</td>
+                                <td class="muted">User 5</td>
+                                <td><span class="badge badge-info">Under review</span></td>
+                                <td class="col-actions">
+                                    <button class="pill" type="button">Assignment</button>
+                                    <button class="pill pill-icon" type="button" aria-label="Expand"><span>▾</span></button>
+                                </td>
+                                <td class="col-more">⋮</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-footer">
+                    <button class="btn btn-ghost" type="button">Previous</button>
+                    <div class="pager">
+                        <button class="page active" type="button">1</button>
+                        <button class="page" type="button">2</button>
+                        <button class="page" type="button">3</button>
+                        <span class="dots">…</span>
+                        <button class="page" type="button">14</button>
+                    </div>
+                    <button class="btn btn-ghost" type="button">Next</button>
+                </div>
+            </section>
+
+            <!-- Side panel -->
+            <aside class="card card-side" aria-label="Assignment details">
+                <h3 class="card-title">Assignment Progress:</h3>
+                <div class="progress-row">
+                    <div class="progress" data-progress="75">
+                        <div class="progress-bar"></div>
+                        <div class="progress-knob" role="slider" aria-label="Assignment progress"
+                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="75" tabindex="0"></div>
+                    </div>
+                    <div class="progress-meta">
+                        <span class="progress-pill">75% Completed</span>
+                        <span class="muted">Reviewers: <strong>2</strong></span>
+                    </div>
+                </div>
+
+                <div class="form">
+                    <label class="field">
+                        <span>Score (1-10)</span>
+                        <input type="text" placeholder="5" />
+                    </label>
+                    <label class="field">
+                        <span>Detailed Comments</span>
+                        <textarea rows="5" placeholder="Detailed Comments"></textarea>
+                    </label>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" type="button">SAVE</button>
+                    <button class="btn btn-secondary" type="button">CANCEL</button>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Manual Assignment -->
+        <section class="card card-manual" aria-label="Manual Assignment">
+            <div class="manual-head">
+                <h3 class="card-title">Manual Assignment</h3>
+                <div class="manual-tools">
+                    <div class="search">
+                        <input type="search" placeholder="Search" aria-label="Search manual assignments" />
+                    </div>
+                    <div class="chips">
+                        <button class="chip" type="button"><i class='bx bx-message-captions'></i><span>Topics</span></button>
+                        <button class="chip" type="button">Keywords</button>
+                        <button class="chip" type="button">Reviewers</button>
+                        <button class="chip" type="button">Status</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="table table-fixed">
+                    <colgroup>
+                        <col class="w-check" />
+                        <col class="w-paper" />
+                        <col class="w-title2" />
+                        <col class="w-track" />
+                        <col class="w-keywords" />
+                        <col class="w-reviewers" />
+                        <col class="w-status2" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="col-check"><input type="checkbox" aria-label="Select all" /></th>
+                            <th>Paper ID</th>
+                            <th>Title</th>
+                            <th>Track</th>
+                            <th>Keywords</th>
+                            <th>Assigned Reviewers</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                            <td class="muted">#AI02</td>
+                            <td>AI for Traffic</td>
+                            <td class="muted">AI</td>
+                            <td class="muted">AI, ML</td>
+                            <td class="muted">Reviewer A</td>
+                            <td><span class="badge badge-ok">Assigned</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-check"><input type="checkbox" checked aria-label="Select row" /></td>
+                            <td class="muted">#AI03</td>
+                            <td>Blockchain IoT</td>
+                            <td class="muted">BlockChain</td>
+                            <td class="muted">IoT, Security</td>
+                            <td class="muted">Reviewer B</td>
+                            <td><span class="badge badge-ok">Assigned</span></td>
+                        </tr>
+                        <tr>
+                            <td class="col-check"><input type="checkbox" aria-label="Select row" /></td>
+                            <td class="muted">#AI04</td>
+                            <td>Blockchain IoT</td>
+                            <td class="muted">BlockChain</td>
+                            <td class="muted">IoT</td>
+                            <td class="muted">Reviewer C</td>
+                            <td><span class="badge badge-info">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-footer">
+                <button class="btn btn-ghost" type="button">Previous</button>
+                <div class="pager">
+                    <button class="page active" type="button">1</button>
+                    <button class="page" type="button">2</button>
+                    <button class="page" type="button">3</button>
+                    <span class="dots">…</span>
+                    <button class="page" type="button">14</button>
+                </div>
+                <button class="btn btn-ghost" type="button">Next</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Page script (only handles the interactive progress slider) -->
+    <script src="./js/assign-review.js"></script>
+</body>
+</html>
+

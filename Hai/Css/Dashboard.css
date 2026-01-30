@@ -1,0 +1,290 @@
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #0f172a;
+}
+
+/* DASHBOARD CONTAINER */
+.dashboard {
+    max-width: 1200px;
+    margin: auto;
+    padding: 24px;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+/* =========================
+   STATS CARDS
+========================= */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.card p {
+    font-size: 14px;
+    color: #64748b;
+}
+
+.card h2 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 10px 0;
+}
+
+.positive {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.negative {
+    color: #ef4444;
+    font-weight: 600;
+}
+
+/* =========================
+   CHARTS LAYOUT
+========================= */
+.charts {
+    display: grid;
+    grid-template-columns: 2fr 1.5fr;
+    gap: 24px;
+    margin-bottom: 28px;
+}
+
+.chart-card {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+    overflow: visible; /* QUAN TRỌNG */
+}
+
+.chart-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* =========================
+   BAR CHART – FIX CHUẨN
+========================= */
+.bar-chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 200px;
+    min-height: 200px; /* FIX MẤT BAR 772px */
+    margin-top: 32px;
+}
+
+.bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 56px;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.bar-item:hover .bar {
+    transform: translateY(-6px);
+    opacity: 0.85;
+}
+
+.bar-item span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+/* BAR COLORS */
+.ai {
+    height: 140px;
+    background: #3b82f6;
+}
+
+.blockchain {
+    height: 110px;
+    background: #60a5fa;
+}
+
+.data {
+    height: 160px;
+    background: #93c5fd;
+}
+
+.security {
+    height: 90px;
+    background: #fb7185;
+}
+
+.hci {
+    height: 130px;
+    background: #a5b4fc;
+}
+
+/* =========================
+   LINE CHART MOCK
+========================= */
+.line-chart {
+    position: relative;
+    height: 160px;
+    margin-top: 30px;
+}
+
+.line {
+    position: absolute;
+    width: 100%;
+    height: 4px;
+    border-radius: 4px;
+}
+
+.acceptance {
+    top: 40%;
+    background: linear-gradient(to right, #22c55e, #4ade80);
+}
+
+.review {
+    top: 60%;
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+}
+
+.legend {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #334155;
+}
+
+.dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin: 0 6px;
+}
+
+.green {
+    background: #22c55e;
+}
+
+.blue {
+    background: #3b82f6;
+}
+
+/* =========================
+   TABLE
+========================= */
+.table-card {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.table-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+}
+
+th,
+td {
+    padding: 14px;
+    font-size: 14px;
+    text-align: center;
+}
+
+thead {
+    background: #f1f5f9;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.success {
+    color: #22c55e;
+}
+
+.warning {
+    color: #f59e0b;
+}
+
+.pending {
+    color: #3b82f6;
+}
+
+.active {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.inactive {
+    color: #94a3b8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .charts {
+        grid-template-columns: 1fr;
+    }
+
+    .bar-chart {
+        height: 180px;
+        min-height: 180px;
+    }
+
+    .bar-item {
+        width: 48px;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .bar-chart {
+        height: 160px;
+        min-height: 160px;
+    }
+
+    .bar-item {
+        width: 42px;
+    }
+}

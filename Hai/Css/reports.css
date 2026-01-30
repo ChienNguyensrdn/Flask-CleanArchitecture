@@ -1,0 +1,80 @@
+body { background: transparent; }
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--spacing-lg);
+}
+
+.stat {
+    grid-column: span 3;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+}
+.dark .stat { background: rgba(15, 23, 42, 0.7); }
+
+.stat span { color: var(--text-secondary); font-size: 12px; }
+.stat strong { display: block; margin-top: 6px; font-size: 28px; color: var(--text-primary); }
+
+.card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-lg);
+}
+.card.full { grid-column: span 12; }
+.dark .card { background: rgba(15, 23, 42, 0.7); }
+
+h3 { color: var(--text-primary); margin-bottom: var(--spacing-md); }
+
+.bars {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--spacing-md);
+    height: 180px;
+    padding: var(--spacing-md);
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    margin-bottom: var(--spacing-md);
+}
+.dark .bars { background: rgba(2, 6, 23, 0.4); }
+
+.b {
+    flex: 1;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    position: relative;
+}
+.b span {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--text-secondary);
+    font-size: 12px;
+}
+
+.btn {
+    padding: 10px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+.btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+@media (max-width: 980px) {
+    .stat { grid-column: span 6; }
+}
+
+@media (max-width: 640px) {
+    .stat { grid-column: span 12; }
+}
+

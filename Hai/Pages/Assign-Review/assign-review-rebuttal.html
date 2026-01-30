@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rebuttal (Optional)</title>
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Css/assign-review.css" />
+</head>
+<body>
+    <div class="ar-page">
+        <div class="ar-header">
+            <div class="ar-title">
+                <h2>Assign &amp; Review</h2>
+            </div>
+        </div>
+
+        <div class="ar-tabs" role="tablist" aria-label="Assign & Review sections">
+            <a class="tab" href="#/assign-review" role="tab" aria-selected="false">Assignment</a>
+            <a class="tab" href="#/assign-review/scores" role="tab" aria-selected="false">Scores &amp; Comments</a>
+            <a class="tab" href="#/assign-review/discussion" role="tab" aria-selected="false">Internal Discussion</a>
+            <a class="tab active" href="#/assign-review/rebuttal" role="tab" aria-selected="true">Rebuttal (Optional)</a>
+        </div>
+
+        <div class="ar-toolbar">
+            <div class="toolbar-left">
+                <button class="btn btn-primary" type="button">Submit Rebuttal</button>
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-download'></i><span>Download Reviews</span></button>
+            </div>
+        </div>
+
+        <div class="ar-grid">
+            <!-- Main rebuttal area -->
+            <section class="card card-table" aria-label="Rebuttal">
+                <div class="rebuttal-status-bar">
+                    <div class="status-info">
+                      <span class="badge badge-ok">Rebuttal Window: OPEN</span>
+                      <span class="muted">Deadline: Feb 20, 2026 (5 days remaining)</span>
+                    </div>
+                  
+                    <button class="btn btn-secondary btn-icon">
+                      <i class="bx bx-download"></i>
+                      Download Reviews
+                    </button>
+                  </div>
+                  
+
+                <div class="paper-info-header">
+                    <div>
+                        <strong>Paper:</strong> AI for Traffic Optimization<br />
+                        <span class="muted">Paper ID: #AI02 | Topic: AI | Authors can respond to reviewer comments</span>
+                    </div>
+                </div>
+
+                <!-- Reviews summary -->
+                <!-- <div class="review-summary-section">
+                    <h3 class="section-title">Reviewer Comments Summary</h3>
+                    
+                    <div class="review-summary-card">
+                        <div class="review-summary-header">
+                            <div class="reviewer-badge">Reviewer A</div>
+                            <span class="score-badge">Score: 7.5/10</span>
+                        </div>
+                        <div class="review-summary-content">
+                            <h4>Main Concerns:</h4>
+                            <ul>
+                                <li>The dataset is limited and could benefit from more diverse data sources</li>
+                                <li>Evaluation metrics need more comprehensive coverage</li>
+                            </ul>
+                            <h4>Strengths:</h4>
+                            <ul>
+                                <li>Well-written paper with solid experiments</li>
+                                <li>Clear methodology and sound experimental setup</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="review-summary-card">
+                        <div class="review-summary-header">
+                            <div class="reviewer-badge">Reviewer B</div>
+                            <span class="score-badge">Score: 6.0/10</span>
+                        </div>
+                        <div class="review-summary-content">
+                            <h4>Main Concerns:</h4>
+                            <ul>
+                                <li>Evaluation methodology needs clearer explanation</li>
+                                <li>More comprehensive experiments are needed</li>
+                            </ul>
+                            <h4>Strengths:</h4>
+                            <ul>
+                                <li>Good idea and solid foundation</li>
+                                <li>Clear presentation of the problem</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> -->
+
+                <section class="review-summary-section">
+                    <h3 class="section-title">Reviewer Comments Summary</h3>
+                  
+                    <div class="review-summary-card">
+                      <div class="review-summary-header">
+                        <span class="reviewer-badge">Reviewer A</span>
+                        <span class="score-badge">Score: 7.5 / 10</span>
+                      </div>
+                  
+                      <div class="review-summary-content">
+                        <h4>Main Concerns</h4>
+                        <ul>
+                          <li>Dataset is limited</li>
+                          <li>Evaluation metrics need improvement</li>
+                        </ul>
+                  
+                        <h4>Strengths</h4>
+                        <ul>
+                          <li>Well-written paper</li>
+                          <li>Clear methodology</li>
+                        </ul>
+                      </div>
+                    </div>
+                  
+                    <div class="review-summary-card">
+                      <div class="review-summary-header">
+                        <span class="reviewer-badge">Reviewer B</span>
+                        <span class="score-badge">Score: 6.0 / 10</span>
+                      </div>
+                  
+                      <div class="review-summary-content">
+                        <h4>Main Concerns</h4>
+                        <ul>
+                          <li>Methodology unclear</li>
+                          <li>Experiments insufficient</li>
+                        </ul>
+                  
+                        <h4>Strengths</h4>
+                        <ul>
+                          <li>Good idea</li>
+                          <li>Clear problem statement</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </section>
+                  
+
+                <!-- Author rebuttal form -->
+                <div class="rebuttal-form-section">
+                    <h3 class="section-title">Author Rebuttal</h3>
+                    <div class="rebuttal-form">
+                        <label class="field">
+                            <span>Response to Reviewer Comments</span>
+                            <textarea rows="10" placeholder="Please respond to each reviewer's concerns and comments. Be specific and constructive in your responses..."></textarea>
+                        </label>
+                        <div class="rebuttal-tips">
+                            <h4>Tips for writing a good rebuttal:</h4>
+                            <ul>
+                                <li>Address each reviewer's concerns directly</li>
+                                <li>Be respectful and professional</li>
+                                <li>Provide specific responses with evidence</li>
+                                <li>Clarify any misunderstandings</li>
+                                <li>Explain how you will address concerns in revision</li>
+                            </ul>
+                        </div>
+                        <div class="actions">
+                            <button class="btn btn-primary" type="button"><i class='bx bx-send'></i> Submit Rebuttal</button>
+                            <button class="btn btn-secondary" type="button">Save Draft</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Side panel -->
+            <aside class="card card-side" aria-label="Rebuttal info">
+                <h3 class="card-title">Rebuttal Info</h3>
+
+                <div class="info-section">
+                    <div class="info-item">
+                        <span class="info-label">Status</span>
+                        <span class="info-value"><span class="badge badge-ok">Open</span></span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Deadline</span>
+                        <span class="info-value">Feb 20, 2026</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Time Remaining</span>
+                        <span class="info-value">5 days</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Reviews Received</span>
+                        <span class="info-value">2 / 2</span>
+                    </div>
+                </div>
+
+                <div class="rebuttal-history">
+                    <h4>History</h4>
+                    <div class="history-item">
+                        <span class="muted">No rebuttal submitted yet</span>
+                    </div>
+                </div>
+
+                <div class="rebuttal-actions-side">
+                    <button class="btn btn-primary" type="button" style="width: 100%; margin-top: 12px;">
+                        <i class='bx bx-download'></i> Download All Reviews
+                    </button>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="./js/assign-review.js"></script>
+</body>
+</html>

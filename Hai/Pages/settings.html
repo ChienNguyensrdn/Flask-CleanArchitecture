@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Settings</title>
+    <link rel="stylesheet" href="../css/settings.css" />
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="page-header">
+            <div>
+                <h2>Settings</h2>
+                <p class="page-description">Thiết lập hệ thống và cấu hình email thông báo</p>
+            </div>
+        </header>
+
+        <div class="grid">
+            <section class="card">
+                <h3>General</h3>
+                <div class="field">
+                    <label>Conference name</label>
+                    <input value="UTH Scientific Conference 2026" />
+                </div>
+                <div class="field">
+                    <label>Default language</label>
+                    <select>
+                        <option selected>Vietnamese</option>
+                        <option>English</option>
+                    </select>
+                </div>
+                <button class="btn primary">Save</button>
+            </section>
+
+            <section class="card">
+                <h3>Email</h3>
+                <div class="field">
+                    <label>From address</label>
+                    <input value="noreply@uth.edu.vn" />
+                </div>
+                <div class="field">
+                    <label>SMTP host</label>
+                    <input placeholder="smtp.example.com" />
+                </div>
+                <button class="btn">Test email</button>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+

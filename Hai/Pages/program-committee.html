@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Program Committee</title>
+    <link rel="stylesheet" href="../css/program-committee.css" />
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="page-header">
+            <div>
+                <h2>Program Committee</h2>
+                <p class="page-description">Quản lý PC members, expertise, load và conflicts</p>
+            </div>
+        </header>
+
+        <div class="grid">
+            <section class="card">
+                <h3>PC Members</h3>
+                <p class="muted">Thêm/sửa/xóa thành viên và phân bổ chuyên môn theo track.</p>
+                <button class="btn primary">+ Add member</button>
+            </section>
+
+            <section class="card">
+                <h3>Workload</h3>
+                <div class="meter">
+                    <div class="bar" style="width: 62%"></div>
+                </div>
+                <p class="muted">62% PC members đã được gán ít nhất 1 paper.</p>
+                <button class="btn">View details</button>
+            </section>
+
+            <section class="card full">
+                <h3>Danh sách (mock)</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Expertise</th>
+                                <th>Assigned</th>
+                                <th>Conflicts</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dr. Nguyen</td>
+                                <td>nguyen@uth.edu.vn</td>
+                                <td><span class="tag">AI</span> <span class="tag">Data</span></td>
+                                <td>5</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Dr. Tran</td>
+                                <td>tran@uth.edu.vn</td>
+                                <td><span class="tag">Security</span></td>
+                                <td>3</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
+

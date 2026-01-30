@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Internal Discussion</title>
+    <!-- Icons -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./Css/assign-review.css" />
+</head>
+<body>
+    <div class="ar-page">
+        <div class="ar-header">
+            <div class="ar-title">
+                <h2>Assign &amp; Review</h2>
+            </div>
+        </div>
+
+        <div class="ar-tabs" role="tablist" aria-label="Assign & Review sections">
+            <a class="tab" href="#/assign-review" role="tab" aria-selected="false">Assignment</a>
+            <a class="tab" href="#/assign-review/scores" role="tab" aria-selected="false">Scores &amp; Comments</a>
+            <a class="tab active" href="#/assign-review/discussion" role="tab" aria-selected="true">Internal Discussion</a>
+            <a class="tab" href="#/assign-review/rebuttal" role="tab" aria-selected="false">Rebuttal (Optional)</a>
+        </div>
+
+        <div class="ar-toolbar">
+            <div class="toolbar-left">
+                <button class="btn btn-primary" type="button">New Discussion</button>
+            </div>
+            <div class="toolbar-right">
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-filter'></i><span>Filters</span></button>
+                <button class="btn btn-ghost btn-icon" type="button"><i class='bx bx-search'></i><span>Search</span></button>
+            </div>
+        </div>
+
+        <div class="ar-grid">
+            <!-- Main discussion area -->
+            <section class="card card-table" aria-label="Internal Discussion">
+                <div class="paper-info-header">
+                    <div>
+                        <strong>Paper:</strong> AI for Traffic Optimization<br />
+                        <span class="muted">Paper ID: #AI02 | Topic: AI | Only visible to reviewers &amp; PC members</span>
+                    </div>
+                </div>
+
+                <!-- Discussion thread -->
+                <div class="discussion-thread">
+                    <div class="comment">
+                        <div class="comment-avatar">A</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <strong>Reviewer A</strong>
+                                <span class="comment-role">Reviewer</span>
+                                <span class="comment-time">2 days ago</span>
+                            </div>
+                            <p>I think the contribution is solid, but the dataset is limited. The authors should consider adding more diverse data sources to strengthen the evaluation.</p>
+                            <div class="comment-actions">
+                                <button class="comment-btn" type="button"><i class='bx bx-like'></i> Like</button>
+                                <button class="comment-btn" type="button"><i class='bx bx-reply'></i> Reply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment comment-reply">
+                        <div class="comment-avatar">B</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <strong>Reviewer B</strong>
+                                <span class="comment-role">Reviewer</span>
+                                <span class="comment-time">1 day ago</span>
+                            </div>
+                            <p>Agree. However, the methodology is clearly explained and the experimental setup is sound. The limitation mentioned is valid but doesn't invalidate the core contribution.</p>
+                            <div class="comment-actions">
+                                <button class="comment-btn" type="button"><i class='bx bx-like'></i> Like</button>
+                                <button class="comment-btn" type="button"><i class='bx bx-reply'></i> Reply</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="comment">
+                        <div class="comment-avatar">PC</div>
+                        <div class="comment-content">
+                            <div class="comment-header">
+                                <strong>PC Member</strong>
+                                <span class="comment-role">Program Committee</span>
+                                <span class="comment-time">12 hours ago</span>
+                            </div>
+                            <p>Based on the reviews, I recommend we request a minor revision focusing on dataset expansion. The paper has strong potential.</p>
+                            <div class="comment-actions">
+                                <button class="comment-btn" type="button"><i class='bx bx-like'></i> Like</button>
+                                <button class="comment-btn" type="button"><i class='bx bx-reply'></i> Reply</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- New comment form -->
+                <div class="new-comment-form">
+                    <div class="comment-avatar">You</div>
+                    <div class="comment-input-area">
+                        <textarea rows="4" placeholder="Add internal comment... (Only visible to reviewers & PC members)"></textarea>
+                        <div class="comment-form-actions">
+                            <button class="btn btn-primary" type="button"><i class='bx bx-send'></i> Post Comment</button>
+                            <button class="btn btn-secondary" type="button">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Side panel -->
+            <aside class="card card-side" aria-label="Discussion info">
+                <h3 class="card-title">Discussion Info</h3>
+
+                <div class="info-section">
+                    <div class="info-item">
+                        <span class="info-label">Total Comments</span>
+                        <span class="info-value">3</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Participants</span>
+                        <span class="info-value">3</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Last Activity</span>
+                        <span class="info-value">12 hours ago</span>
+                    </div>
+                </div>
+
+                <div class="participants-list">
+                    <h4>Participants</h4>
+                    <div class="participant">
+                        <div class="participant-avatar">A</div>
+                        <div>
+                            <strong>Reviewer A</strong>
+                            <span class="muted">2 comments</span>
+                        </div>
+                    </div>
+                    <div class="participant">
+                        <div class="participant-avatar">B</div>
+                        <div>
+                            <strong>Reviewer B</strong>
+                            <span class="muted">1 comment</span>
+                        </div>
+                    </div>
+                    <div class="participant">
+                        <div class="participant-avatar">PC</div>
+                        <div>
+                            <strong>PC Member</strong>
+                            <span class="muted">1 comment</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="./js/assign-review.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8" />
+    <title>Users</title>
+    <link rel="stylesheet" href="../css/users.css" />
+</head>
+<body>
+    <div class="content-wrapper">
+        <header class="page-header">
+            <div>
+                <h2>Users</h2>
+                <p class="page-description">Quản lý tài khoản: Author, Reviewer, PC Chair, Admin</p>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="card-header">
+                <strong>Danh sách người dùng</strong>
+                <div class="actions">
+                    <button class="btn">Import CSV</button>
+                    <button class="btn primary">+ Thêm user</button>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Họ tên</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Trạng thái</th>
+                            <th>Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nguyen Van A</td>
+                            <td>admin@uth.edu.vn</td>
+                            <td><span class="pill">Administrator</span></td>
+                            <td><span class="status ok">Active</span></td>
+                            <td><a class="link" href="#">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>Tran Thi B</td>
+                            <td>reviewer@uth.edu.vn</td>
+                            <td><span class="pill">Reviewer</span></td>
+                            <td><span class="status warn">Pending</span></td>
+                            <td><a class="link" href="#">Invite</a></td>
+                        </tr>
+                        <tr>
+                            <td>Le Van C</td>
+                            <td>author@uth.edu.vn</td>
+                            <td><span class="pill">Author</span></td>
+                            <td><span class="status ok">Active</span></td>
+                            <td><a class="link" href="#">View</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+
