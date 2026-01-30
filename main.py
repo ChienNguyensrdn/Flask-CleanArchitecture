@@ -2,7 +2,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
-from fastapi import jinja2response
 from fastapi.responses import HTMLResponse
 
 from app.core.config import get_settings
@@ -53,11 +52,11 @@ app.include_router(pc_members.router, prefix="/api/v1")
 @app.get("/", response_class=HTMLResponse)
 def home():
     return "<h1>Welcome to UTH Conference Management System API</h1>"
-    templates = Jinja2Templates(directory="templates")
 
-    @app.get("/login", response_class=HTMLResponse)
-    def login(request: Request):
-        return templates.TemplateResponse(request,"login.html", {"request": request})
+templates = Jinja2Templates(directory="templates")
+@app.get("/login", response_class=HTMLResponse)
+def login(request: Request):
+    return templates.TemplateResponse(request,"login.html", {"request": request})
 
 
 

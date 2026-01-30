@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - UTH ConfMS</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form id="loginForm">
+        <label>Username:</label>
+        <input type="text" id="username" required><br>
+        <label>Password:</label>
+        <input type="password" id="password" required><br>
+        <button type="submit">Login</button>
+    </form>
+    <p id="loginError" style="color:red;"></p>
+    <br>
+    <button onclick="window.location.href='/register'">Register</button>
+
+    <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const res = await fetch('/api/v1/auth/login', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({username, password})
+        });
+        if (res.ok) {
+            window.location.href = '/';
+        } else {
+            const data = await res.json();
+            document.getElementById('loginError').innerText = data.detail || 'Login failed';
+        }
+    });
+    </script>
+</body>
+</html>
